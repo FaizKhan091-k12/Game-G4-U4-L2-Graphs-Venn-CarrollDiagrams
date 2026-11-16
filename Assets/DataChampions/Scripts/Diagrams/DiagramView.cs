@@ -49,6 +49,15 @@ namespace DataChampions
 
         int runningCount;
 
+        /// <summary>NEXT can remove the diagram mid-animation: stop every tween that still targets its parts.</summary>
+        void OnDestroy()
+        {
+            foreach (var t in markTweens) t?.Kill();
+            foreach (var t in GetComponentsInChildren<Transform>(true)) t.DOKill();
+            foreach (var cg in GetComponentsInChildren<CanvasGroup>(true)) cg.DOKill();
+            foreach (var g in GetComponentsInChildren<Graphic>(true)) g.DOKill();
+        }
+
         // ------------------------------------------------------------------ registration (factory)
 
         public void AddIntro(RectTransform rt, IntroKind kind, float delay, bool sound = false)

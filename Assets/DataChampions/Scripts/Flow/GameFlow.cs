@@ -368,7 +368,10 @@ namespace DataChampions
                 UIFx.Burst(question.safe.transform.position, Palette.Safe, 10, 150f);
             }
             Speak(risk ? "risk" : "safe");
+            // let Professor Hoot finish his line before anything else is said or the clock starts
             yield return new WaitForSeconds(0.45f);
+            yield return WaitVoice(5f);
+            yield return new WaitForSeconds(0.15f);
 
             // --- reveal: the cover lifts, the diagram builds, and the clock starts straight away
             float introT = question.Reveal();
@@ -385,7 +388,7 @@ namespace DataChampions
                 float dt = Time.deltaTime;
                 elapsed += dt;
                 timeLeft -= dt;
-                if (!questionRead && (elapsed > 1.6f || !GameAudio.I.IsVoicePlaying))
+                if (!questionRead && elapsed > 0.3f && !GameAudio.I.IsVoicePlaying)
                 {
                     questionRead = true;
                     Speak(q.QuestionVoice, false);
