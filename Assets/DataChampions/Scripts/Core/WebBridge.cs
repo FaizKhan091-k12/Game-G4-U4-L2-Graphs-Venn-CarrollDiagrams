@@ -17,8 +17,9 @@ namespace DataChampions
         [System.Serializable]
         public class QuestionResult
         {
-            public int question, tile, chosen, answer, delta;
-            public bool correct, risk, hint;
+            public int question, tile, delta, seconds;
+            public string chosen, answer;
+            public bool correct, risk, hint, fast;
         }
 
         [System.Serializable]

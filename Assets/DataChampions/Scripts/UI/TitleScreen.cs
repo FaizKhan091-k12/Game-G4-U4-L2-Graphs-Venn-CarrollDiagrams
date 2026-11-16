@@ -65,9 +65,9 @@ namespace DataChampions
 
             t.decorRoot = UIFactory.Stretch(root, "Decor");
             string[] dec = { "fl_cookie", "fl_evergreen_tree", "fl_shark", "fl_octopus", "fl_basketball", "fl_carrot", "fl_crab", "fl_bar_chart", "starfish", "fl_trophy" };
-            Vector2[] pos = { new Vector2(-850, 300), new Vector2(-420, 450), new Vector2(680, 470), new Vector2(880, 140), new Vector2(900, -170),
-                              new Vector2(-880, -40), new Vector2(560, -440), new Vector2(-310, -445), new Vector2(470, 470), new Vector2(-40, 470) };
-            float[] size = { 110, 110, 130, 100, 100, 100, 100, 110, 100, 90 };
+            Vector2[] pos = { new Vector2(-890, -260), new Vector2(-420, 460), new Vector2(690, 474), new Vector2(880, 140), new Vector2(900, -170),
+                              new Vector2(-880, -40), new Vector2(560, -440), new Vector2(-310, -445), new Vector2(470, 474), new Vector2(-40, 474) };
+            float[] size = { 96, 100, 76, 100, 100, 100, 100, 110, 78, 74 };
             t.decor = new RectTransform[dec.Length];
             for (int i = 0; i < dec.Length; i++)
                 t.decor[i] = UIFactory.Icon(t.decorRoot, "Decor" + i, cfg.S(dec[i]), UIFactory.Center, pos[i], size[i], Palette.WithA(Color.white, 0.9f)).rectTransform;
@@ -88,16 +88,16 @@ namespace DataChampions
             data.characterSpacing = 8f;
             champs.characterSpacing = 4f;
 
-            t.ribbon = UIFactory.Rect(root, "Ribbon", UIFactory.Center, new Vector2(190, -25), new Vector2(820, 86));
+            t.ribbon = UIFactory.Rect(root, "Ribbon", UIFactory.Center, new Vector2(200, -52), new Vector2(820, 86));
             var rl = UIFactory.Stretch(t.ribbon, "Lip");
             rl.offsetMin = new Vector2(0, -9); rl.offsetMax = new Vector2(0, -9);
             UIFactory.Rounded(rl, Palette.PinkLip, 43);
             UIFactory.Rounded(UIFactory.Stretch(t.ribbon, "Face"), Palette.Pink, 43);
             UIFactory.Label(t.ribbon, "T", "Graphs  •  Venn  •  Carroll diagrams", 46, Color.white, TextAlignmentOptions.Center, true).rectTransform.offsetMin = new Vector2(0, 4);
 
-            t.play = UIFactory.Button(root, "Play", "PLAY", UIFactory.Center, new Vector2(190, -200), new Vector2(520, 170), Palette.Orange, Palette.OrangeLip, 96, cfg.S("play"), 16f);
+            t.play = UIFactory.Button(root, "Play", "PLAY", UIFactory.Center, new Vector2(200, -215), new Vector2(520, 170), Palette.Orange, Palette.OrangeLip, 96, cfg.S("play"), 16f);
             t.play.GetComponent<UIButtonFX>().idlePulse = true;
-            t.progress = UIFactory.Button(root, "Progress", "MY PROGRESS", UIFactory.Center, new Vector2(190, -385), new Vector2(520, 116), Palette.Blue, Palette.BlueLip, 52, cfg.S("fl_trophy"));
+            t.progress = UIFactory.Button(root, "Progress", "MY PROGRESS", UIFactory.Center, new Vector2(200, -400), new Vector2(520, 116), Palette.Blue, Palette.BlueLip, 52, cfg.S("fl_trophy"));
 
             var bestChip = UIFactory.Rect(root, "Best", new Vector2(0, 1), new Vector2(40, -36), new Vector2(380, 84), new Vector2(0, 1));
             UIFactory.Rounded(bestChip, Palette.WithA(Palette.StudioTop, 0.6f), 42);
@@ -108,7 +108,7 @@ namespace DataChampions
             t.soundIcon = t.sound.transform.Find("Face/Icon").GetComponent<Image>();
 
             t.owl = Owl.Build(root, "Owl", new Vector2(0.5f, 0f), new Vector2(-640, 10), 0.95f);
-            t.bubble = SpeechBubble.Build(root, "Bubble", new Vector2(0.5f, 0f), new Vector2(-650, 660), new Vector2(0.3f, 0f), 450, 36, true);
+            t.bubble = SpeechBubble.Build(root, "Bubble", new Vector2(0.5f, 0f), new Vector2(-660, 640), new Vector2(0.5f, 0f), 440, 36, true);
             return t;
         }
     }

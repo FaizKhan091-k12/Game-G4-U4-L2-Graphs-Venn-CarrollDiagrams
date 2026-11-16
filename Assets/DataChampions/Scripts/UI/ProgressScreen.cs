@@ -45,7 +45,7 @@ namespace DataChampions
             {
                 var def = Badges.All[i];
                 bool have = d.badges.Contains(def.id);
-                var pos = new Vector2(-230 + (i % 3) * 230, i < 3 ? 78 : -102);
+                var pos = new Vector2(-230 + (i % 3) * 230, i < 3 ? 80 : -100);
                 var b = ResultsScreen.BadgeIcon(badgeShelf, def, pos, 118, have);
                 var t = UIFactory.Paragraph(b, "Title", def.title, new Vector2(0.5f, 0f), new Vector2(0, -30), new Vector2(220, 44), 30, 20, have ? Palette.Ink : Palette.InkSoft);
                 PopIn(b, 0.2f + i * 0.06f);
@@ -88,28 +88,28 @@ namespace DataChampions
         {
             var p = Make<ProgressScreen>(parent, "Progress");
             UIFactory.Dim(p.transform, 0.6f).raycastTarget = true;
-            var face = UIFactory.Panel(p.transform, "Panel", UIFactory.Center, new Vector2(-40, -10), new Vector2(1600, 880), Palette.Cream, Palette.GoldLip, 60, 18f);
+            var face = UIFactory.Panel(p.transform, "Panel", UIFactory.Center, new Vector2(-40, -15), new Vector2(1600, 960), Palette.Cream, Palette.GoldLip, 60, 18f);
             p.panel = (RectTransform)face.transform.parent;
             UIFactory.Rounded(UIFactory.Stretch(face.transform, "Frame"), Palette.Gold, 60, 12f);
-            HowToScreen.Ribbon(p.panel, "MY PROGRESS", new Vector2(0, 432), Palette.Blue, Palette.BlueLip, 620);
-            p.close = UIFactory.RoundButton(p.panel, "Close", cfg.S("close"), UIFactory.Center, new Vector2(760, 400), 104, Palette.Pink, Palette.PinkLip);
+            HowToScreen.Ribbon(p.panel, "MY PROGRESS", new Vector2(0, 402), Palette.Blue, Palette.BlueLip, 620);
+            p.close = UIFactory.RoundButton(p.panel, "Close", cfg.S("close"), UIFactory.Center, new Vector2(728, 404), 90, Palette.Pink, Palette.PinkLip);
 
             // left: totals + recent games
-            p.games = StatTile(p.panel, "Games played", "fl_party_popper", new Vector2(-590, 250), Palette.Ink);
-            p.best = StatTile(p.panel, "Best score", "fl_coin", new Vector2(-270, 250), Palette.GoldLip);
-            p.stars = StatTile(p.panel, "Best stars", "fl_glowing_star", new Vector2(-590, 92), Palette.Ink);
-            p.accuracy = StatTile(p.panel, "Accuracy", "fl_check_mark_button", new Vector2(-270, 92), Palette.GreenLip);
-            UIFactory.Text(p.panel, "RecentTitle", "Recent games", UIFactory.Center, new Vector2(-430, -30), new Vector2(620, 60), 44, Palette.Ink);
-            p.recentList = UIFactory.Rect(p.panel, "Recent", UIFactory.Center, new Vector2(-430, -210), new Vector2(620, 290));
+            p.games = StatTile(p.panel, "Games played", "fl_party_popper", new Vector2(-590, 235), Palette.Ink);
+            p.best = StatTile(p.panel, "Best score", "fl_coin", new Vector2(-270, 235), Palette.GoldLip);
+            p.stars = StatTile(p.panel, "Best stars", "fl_glowing_star", new Vector2(-590, 80), Palette.Ink);
+            p.accuracy = StatTile(p.panel, "Accuracy", "fl_check_mark_button", new Vector2(-270, 80), Palette.GreenLip);
+            UIFactory.Text(p.panel, "RecentTitle", "Recent games", UIFactory.Center, new Vector2(-430, -40), new Vector2(620, 60), 44, Palette.Ink);
+            p.recentList = UIFactory.Rect(p.panel, "Recent", UIFactory.Center, new Vector2(-430, -215), new Vector2(620, 290));
             p.recentEmpty = UIFactory.Text(p.panel, "RecentEmpty", "Play a game to see it here!", UIFactory.Center, new Vector2(-430, -160), new Vector2(620, 60), 34, Palette.InkSoft);
 
             // right: skills + badges
-            UIFactory.Text(p.panel, "SkillsTitle", "Skills", UIFactory.Center, new Vector2(380, 330), new Vector2(700, 60), 44, Palette.Ink);
+            UIFactory.Text(p.panel, "SkillsTitle", "Skills", UIFactory.Center, new Vector2(380, 290), new Vector2(700, 60), 44, Palette.Ink);
             p.skillFill = new ProceduralImage[Skills.Count];
             p.skillPct = new TextMeshProUGUI[Skills.Count];
             for (int i = 0; i < Skills.Count; i++)
             {
-                float y = 262 - i * 70;
+                float y = 225 - i * 68;
                 var iconBg = UIFactory.Rect(p.panel, "SkillIcon" + i, UIFactory.Center, new Vector2(70, y), new Vector2(58, 58));
                 UIFactory.Rounded(iconBg, Palette.Purple, -1);
                 UIFactory.Icon(iconBg, "Icon", cfg.S(Skills.Icons[i]), UIFactory.Center, Vector2.zero, 40, Color.white);
@@ -120,8 +120,8 @@ namespace DataChampions
                 p.skillFill[i] = UIFactory.Rounded(fill, Palette.Green, 14);
                 p.skillPct[i] = UIFactory.Text(p.panel, "Pct" + i, "-", UIFactory.Center, new Vector2(705, y), new Vector2(90, 50), 34, Palette.Ink);
             }
-            UIFactory.Text(p.panel, "BadgesTitle", "Badges", UIFactory.Center, new Vector2(380, -15), new Vector2(700, 60), 44, Palette.Ink);
-            p.badgeShelf = UIFactory.Rect(p.panel, "Shelf", UIFactory.Center, new Vector2(380, -175), new Vector2(700, 360));
+            UIFactory.Text(p.panel, "BadgesTitle", "Badges", UIFactory.Center, new Vector2(380, -58), new Vector2(700, 60), 44, Palette.Ink);
+            p.badgeShelf = UIFactory.Rect(p.panel, "Shelf", UIFactory.Center, new Vector2(380, -245), new Vector2(700, 300));
             return p;
         }
     }

@@ -28,6 +28,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 89687f0f96a3cfd44b38390219be1a24, type: 3}
   - name: ring
     sprite: {fileID: 21300000, guid: a594d56b42b2856438e26c64f555a12c, type: 3}
+  - name: ring_thick
+    sprite: {fileID: 21300000, guid: 37e6db087c7b1634796ec1e1764b716b, type: 3}
   - name: bulb
     sprite: {fileID: 21300000, guid: 896eefa856210f541bc1f266970a1c6f, type: 3}
   - name: tri
@@ -286,6 +288,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 722838ffcd74802428b5127aa75b2460, type: 3}
   - {fileID: 8300000, guid: 7d3cf3e0a099b584db0b97e0836b4e85, type: 3}
   - {fileID: 8300000, guid: 906211ab4676f1d44a3f5bd85ecbaead, type: 3}
+  - {fileID: 8300000, guid: 25cf6e2506f0cd845b4a929ab9e960f5, type: 3}
   - {fileID: 8300000, guid: 915d1138c48807946a23fd6df4eec026, type: 3}
   - {fileID: 8300000, guid: 043635e5084ddbc49ae937cfc1cf2d3b, type: 3}
   - {fileID: 8300000, guid: 29d2cea74b4cbec4da9648a661d607da, type: 3}
@@ -321,6 +324,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5135bf0e7072225489a3840f8509feeb, type: 3}
   - {fileID: 8300000, guid: 2777a5f6b360e8a4e84f4cdf2821e2a6, type: 3}
   - {fileID: 8300000, guid: 39b94db08a996374caa167b7a21ec2b3, type: 3}
+  - {fileID: 8300000, guid: c82d2dcc2f5c1fc44ba5157f3be2b921, type: 3}
   - {fileID: 8300000, guid: f6707d9fabfae384f8e075939bea9cda, type: 3}
   - {fileID: 8300000, guid: 867d89a6cd0a63d4c83519a228bce549, type: 3}
   - {fileID: 8300000, guid: 999ff41d4e84e9e409b9f389b94cc129, type: 3}

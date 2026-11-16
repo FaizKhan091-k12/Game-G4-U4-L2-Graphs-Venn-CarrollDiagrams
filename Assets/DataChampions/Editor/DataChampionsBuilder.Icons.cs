@@ -207,6 +207,7 @@ namespace DataChampions.EditorTools
             Add(cfg, "star", Paint("Star", 256, pt => pt.Fill(p => Poly(p, StarPts(V(0.5f, 0.47f), 0.47f, 0.21f)) - 0.025f, white)));
             Add(cfg, "sparkle", Paint("Sparkle", 128, pt => pt.Fill(p => Poly(p, StarPts(V(0.5f, 0.5f), 0.48f, 0.1f, 4)) - 0.01f, white)));
             Add(cfg, "ring", Paint("Ring", 256, pt => pt.Fill(p => Mathf.Abs(Circle(p, V(0.5f, 0.5f), 0.44f)) - 0.035f, white)));
+            Add(cfg, "ring_thick", Paint("RingThick", 256, pt => pt.Fill(p => Mathf.Abs(Circle(p, V(0.5f, 0.5f), 0.41f)) - 0.08f, white)));
             Add(cfg, "bulb", Paint("Bulb", 64, pt =>
             {
                 pt.FillWith(p => Circle(p, V(0.5f, 0.5f), 0.48f), p => new Color(1, 1, 1, 0.35f * Mathf.Clamp01(1f - (p - V(0.5f, 0.5f)).magnitude / 0.48f)));

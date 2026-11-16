@@ -64,11 +64,11 @@ namespace DataChampions
         {
             var h = Make<Hud>(parent, "Hud");
             var root = h.transform;
-            h.pause = UIFactory.RoundButton(root, "Pause", cfg.S("pause"), new Vector2(0, 1), new Vector2(76, -66), 100, Palette.Purple, Palette.PurpleLip);
+            h.pause = UIFactory.RoundButton(root, "Pause", cfg.S("pause"), new Vector2(0, 1), new Vector2(72, -62), 92, Palette.Purple, Palette.PurpleLip);
 
             // progress dots
-            var bar = UIFactory.Rect(root, "Progress", new Vector2(0.5f, 1f), new Vector2(0, -62), new Vector2(560, 74));
-            UIFactory.Rounded(bar, Palette.WithA(Palette.StudioTop, 0.55f), 37);
+            var bar = UIFactory.Rect(root, "Progress", new Vector2(0.5f, 1f), new Vector2(0, -56), new Vector2(560, 70));
+            UIFactory.Rounded(bar, Palette.WithA(Palette.StudioTop, 0.55f), 35);
             h.dots = new ProceduralImage[10];
             for (int i = 0; i < 10; i++)
             {
@@ -77,27 +77,27 @@ namespace DataChampions
             }
             h.progressText = UIFactory.Text(bar, "Count", "0 / 10", new Vector2(1f, 0.5f), new Vector2(-24, 0), new Vector2(110, 60), 34, Color.white, TextAlignmentOptions.Right, true);
             ((RectTransform)h.progressText.transform.parent).pivot = new Vector2(1f, 0.5f);
-            bar.sizeDelta = new Vector2(560, 74);
+            bar.sizeDelta = new Vector2(560, 70);
             foreach (var d in h.dots) ((RectTransform)d.transform).anchoredPosition += new Vector2(-50, 0);
 
             // coins
-            h.coinPill = UIFactory.Rect(root, "Coins", new Vector2(1, 1), new Vector2(-28, -24), new Vector2(300, 90), new Vector2(1, 1));
+            h.coinPill = UIFactory.Rect(root, "Coins", new Vector2(1, 1), new Vector2(-28, -18), new Vector2(290, 82), new Vector2(1, 1));
             var lip = UIFactory.Stretch(h.coinPill, "Lip");
             lip.offsetMin = new Vector2(0, -8); lip.offsetMax = new Vector2(0, -8);
             UIFactory.Rounded(lip, Palette.GoldLip, 45);
             UIFactory.Rounded(UIFactory.Stretch(h.coinPill, "Face"), Palette.Gold, 45);
-            h.coinIcon = UIFactory.Icon(h.coinPill, "Coin", cfg.S("fl_coin"), new Vector2(0, 0.5f), new Vector2(48, 2), 84).rectTransform;
+            h.coinIcon = UIFactory.Icon(h.coinPill, "Coin", cfg.S("fl_coin"), new Vector2(0, 0.5f), new Vector2(46, 2), 76).rectTransform;
             var lbl = UIFactory.Text(h.coinPill, "Value", "0", UIFactory.Center, new Vector2(40, 2), new Vector2(200, 80), 58, Color.white, TextAlignmentOptions.Center, true);
             h.coins = h.coinPill.gameObject.AddComponent<CountingLabel>();
             h.coins.label = lbl;
 
             // streak
-            h.streakChip = UIFactory.Rect(root, "Streak", new Vector2(1, 1), new Vector2(-350, -24), new Vector2(190, 90), new Vector2(1, 1));
+            h.streakChip = UIFactory.Rect(root, "Streak", new Vector2(1, 1), new Vector2(-336, -18), new Vector2(180, 82), new Vector2(1, 1));
             var sl = UIFactory.Stretch(h.streakChip, "Lip");
             sl.offsetMin = new Vector2(0, -8); sl.offsetMax = new Vector2(0, -8);
             UIFactory.Rounded(sl, Palette.RiskLip, 45);
             UIFactory.Rounded(UIFactory.Stretch(h.streakChip, "Face"), Palette.Risk, 45);
-            UIFactory.Icon(h.streakChip, "Fire", cfg.S("fl_fire"), new Vector2(0, 0.5f), new Vector2(46, 6), 80);
+            UIFactory.Icon(h.streakChip, "Fire", cfg.S("fl_fire"), new Vector2(0, 0.5f), new Vector2(44, 5), 72);
             h.streakText = UIFactory.Text(h.streakChip, "Value", "×2", UIFactory.Center, new Vector2(38, 2), new Vector2(110, 80), 56, Color.white, TextAlignmentOptions.Center, true);
             h.streakChip.gameObject.SetActive(false);
             return h;

@@ -32,7 +32,8 @@ namespace DataChampions
         }
 
         public RectTransform content;   // diagram drawing
-        public RectTransform overlay;   // highlights, counters, guide lines
+        public RectTransform overlay;   // highlights, guide lines, value badges
+        public RectTransform under;     // glows behind counted items
         public System.Action<string> setCaption;
 
         readonly List<Intro> intros = new List<Intro>();
@@ -123,33 +124,49 @@ namespace DataChampions
 
         // ------------------------------------------------------------------ marks (highlights, counters)
 
-        Vector2 Center(Rect r) => r.center;
+        readonly List<GameObject> highlights = new List<GameObject>();
+        readonly List<string> tally = new List<string>();
 
-        RectTransform MarkRect(string name, Rect r, float pad)
+        RectTransform MarkRect(string name, Rect r)
         {
-            var rt = UIFactory.Rect(overlay, name, UIFactory.Center, r.center, r.size + Vector2.one * pad * 2f);
+            var rt = UIFactory.Rect(overlay, name, UIFactory.Center, r.center, r.size);
             marks.Add(rt.gameObject);
             return rt;
         }
 
-        /// <summary>Glowing frame around a region; it pulses a few times then stays lit.</summary>
-        public void Highlight(string key, Color? color = null, bool soft = false)
+        /// <summary>
+        /// Glowing frame drawn just inside a region (never over the table edges). By default it replaces the previous
+        /// frame, so the eye goes row -> column -> the one box that answers the question.
+        /// </summary>
+        public void Highlight(string key, Color? color = null, bool soft = false, bool replace = true)
         {
             if (!regions.TryGetValue(key, out var reg)) { Debug.LogWarning("[DataChampions] no region " + key); return; }
+            if (replace)
+            {
+                foreach (var old in highlights)
+                {
+                    if (old == null) continue;
+                    var g = old;
+                    var ocg = g.GetComponent<CanvasGroup>();
+                    ocg.DOKill();
+                    ocg.DOFade(0f, 0.2f).SetLink(g).OnComplete(() => g.SetActive(false));
+                }
+                highlights.Clear();
+            }
             var c = color ?? Palette.Highlight;
-            var rt = MarkRect("Hl_" + key, reg.rect, 10f);
-            float radius = reg.round ? -1f : 22f;
-            var fill = UIFactory.Stretch(rt, "Fill");
-            UIFactory.Rounded(fill, Palette.WithA(c, soft ? 0.07f : 0.08f), radius);
-            var frame = UIFactory.Stretch(rt, "Frame");
-            UIFactory.Rounded(frame, c, radius, soft ? 6f : 9f);
-            rt.localScale = Vector3.one * 1.08f;
+            var rt = MarkRect("Hl_" + key, reg.rect);
+            highlights.Add(rt.gameObject);
+            float radius = reg.round ? -1f : 20f;
+            UIFactory.Rounded(UIFactory.Stretch(rt, "Fill"), Palette.WithA(c, soft ? 0.07f : 0.08f), radius);
+            UIFactory.Rounded(UIFactory.Stretch(rt, "Frame"), c, radius, soft ? 6f : 8f);
+            rt.localScale = Vector3.one * 1.04f;
             var cg = rt.gameObject.AddComponent<CanvasGroup>();
             cg.alpha = 0f;
             var s = DOTween.Sequence().SetLink(rt.gameObject);
             s.Append(cg.DOFade(1f, 0.2f)).Join(rt.DOScale(1f, 0.3f).SetEase(Ease.OutBack));
-            s.Append(rt.DOScale(1.025f, 0.35f).SetLoops(soft ? -1 : 4, LoopType.Yoyo).SetEase(Ease.InOutSine));
             markTweens.Add(s);
+            // hints keep breathing gently (a separate tween: infinite loops can't live inside a Sequence)
+            if (soft) markTweens.Add(cg.DOFade(0.55f, 0.5f).SetDelay(0.3f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetLink(rt.gameObject));
             GameAudio.I?.Play(Sfx.Sparkle, 1.1f, 0.5f);
         }
 
@@ -159,32 +176,40 @@ namespace DataChampions
             markTweens.Clear();
             foreach (var g in marks) if (g != null) Destroy(g);
             marks.Clear();
+            highlights.Clear();
+            tally.Clear();
             runningCount = 0;
         }
 
-        /// <summary>Counts a group item by item: each one bounces and gets a gold badge with the running total.</summary>
+        /// <summary>
+        /// Counts a group item by item: a gold glow appears BEHIND each item (nothing is drawn over the diagram) and
+        /// the running total grows in the caption strip ("2, 4, 6 ...").
+        /// </summary>
         public IEnumerator Count(string group, int step, bool keep)
         {
             if (!groups.TryGetValue(group, out var items)) { Debug.LogWarning("[DataChampions] no group " + group); yield break; }
-            if (!keep) runningCount = 0;
+            if (!keep) { runningCount = 0; tally.Clear(); }
             float per = items.Count > 10 ? 0.34f : 0.45f;
             for (int i = 0; i < items.Count; i++)
             {
                 var it = items[i];
                 runningCount += step;
+                tally.Add(runningCount.ToString());
+                setCaption?.Invoke("Count: " + string.Join(", ", tally));
+
+                var p = (Vector2)under.InverseTransformPoint(it.position);
+                // soft gold glow sized to the item's own shape (round chips, square tiles, wide name pills)
+                var size = it.rect.size + new Vector2(70f, 56f);
+                var halo = UIFactory.Rect(under, "Glow", UIFactory.Center, p, size);
+                marks.Add(halo.gameObject);
+                var glow = halo.gameObject.AddComponent<Image>();
+                glow.sprite = GameConfig.Get("soft");
+                glow.color = Palette.Gold;
+                glow.raycastTarget = false;
+                halo.localScale = Vector3.zero;
+                halo.DOScale(1f, 0.25f).SetEase(Ease.OutBack).SetLink(halo.gameObject);
                 it.DOKill(true);
-                it.DOPunchScale(Vector3.one * 0.3f, 0.35f, 6, 0.6f);
-                var p = (Vector2)overlay.InverseTransformPoint(it.position);
-                var size = it.rect.size;
-                // gold ring around the counted item, running total in a small badge on its top-right corner
-                var ring = UIFactory.Rect(overlay, "Ring", UIFactory.Center, p, size + Vector2.one * 16f);
-                marks.Add(ring.gameObject);
-                UIFactory.Rounded(ring, Palette.Gold, Mathf.Min(size.x, size.y) * 0.5f + 8f, 6f);
-                ring.localScale = Vector3.one * 1.3f;
-                ring.DOScale(1f, 0.25f).SetEase(Ease.OutBack).SetLink(ring.gameObject);
-                var badgePos = p + new Vector2(size.x * 0.5f + 4f, size.y * 0.5f + 4f);
-                Badge(badgePos, runningCount.ToString(), 44f, 30f);
-                UIFx.Burst(it.position, Palette.Gold, 6, 70f);
+                it.DOPunchScale(Vector3.one * 0.22f, 0.35f, 6, 0.6f);
                 GameAudio.I?.Play(Sfx.Tick, 0.85f + Mathf.Min(i, 16) * 0.05f, 0.9f);
                 yield return new WaitForSeconds(per);
             }
@@ -214,9 +239,9 @@ namespace DataChampions
             float top = zeroY + v * unit;
             var p = (Vector2)overlay.InverseTransformPoint(bar.position); // bar pivot is its bottom centre
             float half = bar.rect.width * 0.5f;
-            var r = new Rect(p.x - half, zeroY, half * 2f, v * unit);
+            var r = new Rect(p.x - half - 8f, zeroY, half * 2f + 16f, v * unit + 8f);
             regions["bar" + index] = new Region { rect = r };
-            Highlight("bar" + index, Palette.Highlight);
+            Highlight("bar" + index, Palette.Highlight, false, false);
             bar.DOPunchScale(new Vector3(0.12f, 0.06f, 0), 0.4f, 6, 0.5f);
             yield return new WaitForSeconds(0.35f);
 
@@ -258,7 +283,7 @@ namespace DataChampions
 
         public void ShowHint(string[] regionKeys)
         {
-            foreach (var k in regionKeys) Highlight(k, Palette.Highlight, true);
+            foreach (var k in regionKeys) Highlight(k, Palette.Highlight, true, false);
         }
     }
 }

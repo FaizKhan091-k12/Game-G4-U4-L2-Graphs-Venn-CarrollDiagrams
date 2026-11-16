@@ -37,8 +37,8 @@ namespace DataChampions
         public int skill;
         public int points;
         public string text;
-        public int[] options;
-        public int answer;
+        public string[] options;
+        public int answer;           // index into options
         public string hint;
         public string[] hintRegions;
         public ExplainStep[] explain;
@@ -47,6 +47,9 @@ namespace DataChampions
         public string QuestionVoice => "q" + id;
         public string HintVoice => "h" + id;
         public string ExplainVoice => "e" + id;
+        public string AnswerText => options[answer];
+
+        public static string[] Num(params int[] v) => System.Array.ConvertAll(v, x => x.ToString());
     }
 
     /// <summary>
@@ -62,7 +65,7 @@ namespace DataChampions
             {
                 id = 1, diagram = DiagramId.Cookies, skill = Skills.Pictogram, points = 300,
                 text = "How many students voted in the survey?",
-                options = new[] { 14, 26, 28, 32 }, answer = 28, unit = "students",
+                options = QuestionDef.Num(14, 24, 26, 28, 30, 32), answer = 3, unit = "students",
                 hint = "Look at the key. Each cookie stands for 2 students.",
                 hintRegions = new[] { "key" },
                 explain = new[]
@@ -76,7 +79,7 @@ namespace DataChampions
             {
                 id = 2, diagram = DiagramId.Vegetables, skill = Skills.Carroll, points = 100,
                 text = "How many vegetables are NOT green?",
-                options = new[] { 3, 4, 5, 8 }, answer = 4, unit = "vegetables",
+                options = QuestionDef.Num(2, 3, 4, 5, 6, 8), answer = 2, unit = "vegetables",
                 hint = "Only look in the 'Not green vegetables' column.",
                 hintRegions = new[] { "colNot" },
                 explain = new[]
@@ -90,7 +93,7 @@ namespace DataChampions
             {
                 id = 3, diagram = DiagramId.VennNumbers, skill = Skills.Venn, points = 200,
                 text = "How many numbers are odd?",
-                options = new[] { 5, 10, 15, 20 }, answer = 10, unit = "numbers",
+                options = QuestionDef.Num(5, 8, 9, 10, 15, 20), answer = 3, unit = "numbers",
                 hint = "Don't forget the numbers where the two circles overlap!",
                 hintRegions = new[] { "leftCircle" },
                 explain = new[]
@@ -105,7 +108,7 @@ namespace DataChampions
             {
                 id = 4, diagram = DiagramId.BallsBar, skill = Skills.BarChart, points = 100,
                 text = "How many beach balls and volleyballs are there altogether?",
-                options = new[] { 3, 6, 7, 9 }, answer = 7, unit = "balls",
+                options = QuestionDef.Num(3, 5, 6, 7, 8, 9), answer = 3, unit = "balls",
                 hint = "Read across from the top of each bar to the numbers on the side.",
                 hintRegions = new[] { "axis" },
                 explain = new[]
@@ -119,7 +122,7 @@ namespace DataChampions
             {
                 id = 5, diagram = DiagramId.Trees, skill = Skills.Pictogram, points = 200,
                 text = "Each tree picture stands for 2 trees. How many trees were planted on Saturday?",
-                options = new[] { 2, 4, 6, 8 }, answer = 4, unit = "trees",
+                options = QuestionDef.Num(2, 3, 4, 5, 6, 8), answer = 2, unit = "trees",
                 hint = "Find Saturday. Remember, each picture means 2 trees.",
                 hintRegions = new[] { "row5" },
                 explain = new[]
@@ -133,7 +136,7 @@ namespace DataChampions
             {
                 id = 6, diagram = DiagramId.SeaAnimals, skill = Skills.Pictogram, points = 100,
                 text = "How many sea animals are there altogether?",
-                options = new[] { 4, 11, 12, 13 }, answer = 12, unit = "sea animals",
+                options = QuestionDef.Num(4, 10, 11, 12, 13, 14), answer = 3, unit = "sea animals",
                 hint = "Count every animal, in every row.",
                 hintRegions = new[] { "table" },
                 explain = new[]
@@ -147,7 +150,7 @@ namespace DataChampions
             {
                 id = 7, diagram = DiagramId.VennNumbers, skill = Skills.Venn, points = 200,
                 text = "How many numbers are greater than 10?",
-                options = new[] { 5, 9, 10, 20 }, answer = 10, unit = "numbers",
+                options = QuestionDef.Num(5, 9, 10, 11, 15, 20), answer = 2, unit = "numbers",
                 hint = "Look inside the whole right-hand circle, including the overlap.",
                 hintRegions = new[] { "rightCircle" },
                 explain = new[]
@@ -161,8 +164,8 @@ namespace DataChampions
             new QuestionDef
             {
                 id = 8, diagram = DiagramId.CarrollNumbers, skill = Skills.Carroll, points = 300,
-                text = "How many multiples of 3 are also even numbers?",
-                options = new[] { 2, 3, 4, 6 }, answer = 3, unit = "numbers",
+                text = "Which numbers are multiples of 3 AND even numbers?",
+                options = new[] { "6, 18, 24", "9, 21, 27", "10, 20, 40", "25, 35, 55", "6, 9, 21", "6, 10, 20" }, answer = 0, unit = "numbers",
                 hint = "Find where the 'multiple of 3' row meets the 'even number' column.",
                 hintRegions = new[] { "row0", "col0" },
                 explain = new[]
@@ -171,14 +174,14 @@ namespace DataChampions
                     ExplainStep.Highlight("col0"),
                     ExplainStep.Highlight("cell00"),
                     ExplainStep.Count("cell00"),
-                    ExplainStep.Caption("6, 18 and 24: that's 3 numbers"),
+                    ExplainStep.Caption("6, 18 and 24 are multiples of 3 AND even"),
                 }
             },
             new QuestionDef
             {
                 id = 9, diagram = DiagramId.CarrollNames, skill = Skills.Carroll, points = 200,
                 text = "How many children can ride a bike AND swim?",
-                options = new[] { 3, 4, 7, 13 }, answer = 4, unit = "children",
+                options = QuestionDef.Num(3, 4, 5, 6, 7, 13), answer = 1, unit = "children",
                 hint = "Find the box where 'Can swim' meets 'Can ride a bike'.",
                 hintRegions = new[] { "row0", "col0" },
                 explain = new[]
@@ -194,7 +197,7 @@ namespace DataChampions
             {
                 id = 10, diagram = DiagramId.CarrollShapes, skill = Skills.Carroll, points = 300,
                 text = "How many shapes are symmetrical AND have more than 4 corners?",
-                options = new[] { 2, 3, 4, 6 }, answer = 2, unit = "shapes",
+                options = QuestionDef.Num(1, 2, 3, 4, 5, 6), answer = 1, unit = "shapes",
                 hint = "Find where the 'Symmetrical' row meets the 'More than 4 corners' column.",
                 hintRegions = new[] { "row0", "col1" },
                 explain = new[]

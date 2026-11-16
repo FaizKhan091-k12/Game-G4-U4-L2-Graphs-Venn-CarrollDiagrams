@@ -23,6 +23,7 @@ namespace DataChampions
             view = host.gameObject.AddComponent<DiagramView>();
             view.content = UIFactory.Stretch(host, "Content");
             structure = UIFactory.Stretch(view.content, "Structure");
+            view.under = UIFactory.Stretch(view.content, "Under");
             layer = UIFactory.Stretch(view.content, "Items");
             view.overlay = UIFactory.Stretch(host, "Overlay");
             view.AddIntro(structure, DiagramView.IntroKind.Fade, 0f);

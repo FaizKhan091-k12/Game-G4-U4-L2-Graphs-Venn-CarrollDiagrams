@@ -38,6 +38,8 @@ namespace DataChampions
             { "new_best", "That's a new best score!" },
             { "badge", "You've unlocked a new badge!" },
             { "turn", "Please turn your device sideways." },
+            { "times_up", "Time's up! Let's look at the answer." },
+            { "fast", "Lightning fast! Speed bonus!" },
         };
 
         public static string Get(string key)

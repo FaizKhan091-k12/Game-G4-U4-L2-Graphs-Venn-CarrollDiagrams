@@ -15,6 +15,10 @@ namespace DataChampions
     {
         public const int HintCost = 50;
         public const int StreakBonus = 50;
+        public const int SpeedBonus = 50;
+        public const float QuestionSeconds = 45f;
+        public const float FastSeconds = 15f;
+        const int TimeOut = -2;
 
         public GameConfig config;
         public GameAudio audioManager;
@@ -43,7 +47,7 @@ namespace DataChampions
             public int[] tileState = new int[10];   // 0 open, 1 right, 2 wrong
             public int[] tileDelta = new int[10];
             public bool[] questionRight = new bool[11];
-            public int score, streak, bestStreak, correct, answered, risksTaken, risksWon, hints;
+            public int score, streak, bestStreak, correct, answered, risksTaken, risksWon, hints, fastAnswers;
             public float startTime;
             public List<WebBridge.QuestionResult> results = new List<WebBridge.QuestionResult>();
         }
@@ -54,6 +58,7 @@ namespace DataChampions
         bool busy, paused, waitingNext, hintUsed, startAfterHowTo;
         int wagerChoice = -1, answerChoice = -1, currentTile = -1;
         QuestionDef currentQ;
+        float timeLeft;
 
         // test hooks (read by the editor autoplayer)
         public int Score => run != null ? run.score : 0;
@@ -93,10 +98,10 @@ namespace DataChampions
         void Wire()
         {
             title.play.onClick.AddListener(StartGame);
-            title.progress.onClick.AddListener(() => progress.Show());
+            title.progress.onClick.AddListener(() => { title.bubble.Hide(); progress.Show(); });
             title.sound.onClick.AddListener(ToggleSound);
             howTo.go.onClick.AddListener(CloseHowTo);
-            board.help.onClick.AddListener(() => { startAfterHowTo = false; howTo.Show(); howTo.PlayIntro(); Speak("howto"); });
+            board.help.onClick.AddListener(() => { startAfterHowTo = false; board.bubble.Hide(); howTo.Show(); howTo.PlayIntro(); Speak("howto"); });
             hud.pause.onClick.AddListener(Pause);
             pause.resume.onClick.AddListener(Resume);
             pause.restart.onClick.AddListener(() => { Resume(); StopFlow(); BeginRun(); });
@@ -107,13 +112,13 @@ namespace DataChampions
             question.hint.onClick.AddListener(OnHint);
             question.replay.onClick.AddListener(() => { if (currentQ != null) Speak(currentQ.QuestionVoice, false); });
             question.next.onClick.AddListener(() => { if (waitingNext) { waitingNext = false; question.next.interactable = false; } });
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < QuestionScreen.AnswerCount; i++)
             {
                 int idx = i;
                 question.answers[i].onClick.AddListener(() => OnAnswer(idx));
             }
             results.again.onClick.AddListener(StartGame);
-            results.progress.onClick.AddListener(() => progress.Show());
+            results.progress.onClick.AddListener(() => { results.bubble.Hide(); progress.Show(); });
             results.home.onClick.AddListener(() => GoTitle(true));
             progress.close.onClick.AddListener(() => progress.Hide());
         }
@@ -202,6 +207,7 @@ namespace DataChampions
             if (!SaveSystem.Data.seenHowTo && Current == State.Title)
             {
                 startAfterHowTo = true;
+                title.bubble.Hide();
                 howTo.Show();
                 howTo.PlayIntro();
                 GameAudio.I?.StopVoice();
@@ -306,13 +312,28 @@ namespace DataChampions
             var q = QuestionBank.All[run.tileQuestion[tile]];
             currentQ = q;
             int points = q.points;
+
+            // numbers stay in order (easier to scan); worded options are shuffled so the answer has no fixed spot
+            int n = q.options.Length;
+            var order = new int[n];
+            for (int i = 0; i < n; i++) order[i] = i;
+            if (!int.TryParse(q.options[0], out _))
+                for (int i = n - 1; i > 0; i--) { int j = Random.Range(0, i + 1); (order[i], order[j]) = (order[j], order[i]); }
+            var shown = new string[n];
+            int correctIdx = 0;
+            for (int i = 0; i < n; i++)
+            {
+                shown[i] = q.options[order[i]];
+                if (order[i] == q.answer) correctIdx = i;
+            }
+
             yield return new WaitForSeconds(0.3f);
             yield return fader.FadeOut(0.22f).WaitForCompletion();
             board.tiles[tile].transform.localScale = Vector3.one;
             board.Hide(true);
             Current = State.Question;
             bubble = question.bubble;
-            question.Setup(q, tile + 1, points);
+            question.Setup(q, shown, tile + 1, points);
             question.Show(true);
             hud.SetDots(run.tileState, tile);
             fader.FadeIn(0.25f);
@@ -359,17 +380,38 @@ namespace DataChampions
             if (!GameAudio.I.IsVoicePlaying || GameAudio.I.CurrentLine == "choose_wager") Speak(risk ? "risk" : "safe");
             yield return new WaitForSeconds(0.35f);
 
-            // --- answer
+            // --- answer against the clock
             answerChoice = -1;
             question.ShowAnswers();
-            while (answerChoice < 0) yield return null;
+            question.ShowTimer(QuestionSeconds);
+            timeLeft = QuestionSeconds;
+            int lastTick = -1;
+            while (answerChoice < 0)
+            {
+                timeLeft -= Time.deltaTime;
+                question.SetTimer(timeLeft, QuestionSeconds);
+                int secs = Mathf.CeilToInt(timeLeft);
+                if (secs <= 5 && secs >= 1 && secs != lastTick)
+                {
+                    lastTick = secs;
+                    GameAudio.I?.Play(Sfx.Tick, 1.3f, 0.8f);
+                }
+                if (timeLeft <= 0f)
+                {
+                    answerChoice = TimeOut;
+                    break;
+                }
+                yield return null;
+            }
+            question.StopTimer(false);
             question.LockAnswers();
             if (question.hint.gameObject.activeSelf) question.hint.transform.DOScale(0f, 0.2f).OnComplete(() => question.hint.gameObject.SetActive(false));
-            int chosen = answerChoice;
-            int correctIdx = System.Array.IndexOf(q.options, q.answer);
-            bool correct = chosen == correctIdx;
-            var chosenBtn = question.answers[chosen].transform;
-            if (risk)
+            bool timedOut = answerChoice == TimeOut;
+            int chosen = timedOut ? -1 : answerChoice;
+            bool correct = !timedOut && chosen == correctIdx;
+            bool fast = correct && QuestionSeconds - timeLeft <= FastSeconds;
+            var chosenBtn = timedOut ? question.answers[correctIdx].transform : question.answers[chosen].transform;
+            if (risk && !timedOut)
             {
                 GameAudio.I?.StopVoice();
                 GameAudio.I?.Play(Sfx.Drumroll, 1f, 0.8f);
@@ -391,26 +433,34 @@ namespace DataChampions
                 question.MarkAnswer(chosen, true);
                 GameAudio.I?.Play(Sfx.Correct);
                 GameAudio.I?.Play(Sfx.Cheer, 1f, 0.35f);
-                UIFx.Ring(chosenBtn.position, Palette.Correct, 380f);
+                UIFx.Ring(chosenBtn.position, Palette.Correct, 340f);
                 UIFx.Burst(chosenBtn.position, Palette.Correct, 14, 200f);
-                UIFx.FloatText(chosenBtn.position + Vector3.up * 40f, "+" + delta, Palette.Gold, 92f);
+                UIFx.FloatText(chosenBtn.position, "+" + delta, Palette.Gold, 84f, 90f);
                 int coinCount = Mathf.Clamp(delta / 50, 4, 14);
-                int target = run.score + delta;
-                run.score = target;
+                run.score += delta;
                 UIFx.CoinFly(chosenBtn.position, hud.CoinTarget, coinCount,
                     () => GameAudio.I?.Play(Sfx.Coin, Random.Range(1.0f, 1.25f), 0.35f),
                     () => { if (run != null) hud.coins.AnimateTo(run.score, 0.5f); });
                 question.owl.Happy();
                 studio.SetIntensity(1.5f);
-                Speak(risk ? "risk_win" : "correct_" + Random.Range(1, 6));
+                Speak(risk ? "risk_win" : fast ? "fast" : "correct_" + Random.Range(1, 6));
                 yield return new WaitForSeconds(0.9f);
+                if (fast)
+                {
+                    run.score += SpeedBonus;
+                    delta += SpeedBonus;
+                    run.fastAnswers++;
+                    GameAudio.I?.Play(Sfx.Sparkle, 1.2f);
+                    UIFx.FloatText(question.timer.position, "FAST +" + SpeedBonus, Palette.Blue, 56f, -110f);
+                    DOVirtual.DelayedCall(0.4f, () => { if (run != null) hud.coins.AnimateTo(run.score, 0.4f); }).SetLink(gameObject);
+                }
                 hud.SetStreak(run.streak, true);
                 if (run.streak >= 3)
                 {
                     run.score += StreakBonus;
                     delta += StreakBonus;
                     GameAudio.I?.Play(Sfx.Streak);
-                    UIFx.FloatText(hud.streakChip.position + Vector3.down * 60f, "STREAK +" + StreakBonus, Palette.Risk, 60f, 90f);
+                    UIFx.FloatText(hud.streakChip.position, "STREAK +" + StreakBonus, Palette.Risk, 56f, -130f);
                     UIFx.Burst(hud.streakChip.position, Palette.Risk, 12, 140f);
                     DOVirtual.DelayedCall(0.5f, () => { if (run != null) hud.coins.AnimateTo(run.score, 0.4f); }).SetLink(gameObject);
                     if (run.streak == 3 || run.streak == 5)
@@ -425,7 +475,7 @@ namespace DataChampions
                 delta = risk ? -Mathf.Min(points, run.score) : 0;
                 run.streak = 0;
                 hud.SetStreak(0, false);
-                question.MarkAnswer(chosen, false);
+                if (!timedOut) question.MarkAnswer(chosen, false);
                 GameAudio.I?.Play(Sfx.Wrong);
                 GameAudio.I?.Play(Sfx.Aww, 1f, 0.3f);
                 question.owl.Sad();
@@ -435,11 +485,10 @@ namespace DataChampions
                     run.score += delta;
                     hud.coins.AnimateTo(run.score, 0.7f);
                     UIFx.CoinDrop(hud.CoinTarget, Mathf.Clamp(-delta / 50, 3, 10));
-                    UIFx.FloatText(chosenBtn.position, delta.ToString(), Palette.Wrong, 84f, 120f);
+                    UIFx.FloatText(timedOut ? question.timer.position : chosenBtn.position, delta.ToString(), Palette.Wrong, 80f, -120f);
                     GameAudio.I?.Play(Sfx.CoinLose);
-                    Speak("risk_lose");
                 }
-                else Speak("wrong_" + Random.Range(1, 4));
+                Speak(timedOut ? "times_up" : risk && delta < 0 ? "risk_lose" : "wrong_" + Random.Range(1, 4));
                 yield return new WaitForSeconds(0.6f);
                 question.MarkAnswer(correctIdx, true);
                 GameAudio.I?.Play(Sfx.Sparkle);
@@ -452,8 +501,8 @@ namespace DataChampions
             SaveSystem.RecordAnswer(q.skill, correct);
             var res = new WebBridge.QuestionResult
             {
-                question = q.id, tile = tile + 1, chosen = q.options[chosen], answer = q.answer, delta = delta,
-                correct = correct, risk = risk, hint = hintUsed
+                question = q.id, tile = tile + 1, chosen = timedOut ? "(time up)" : shown[chosen], answer = q.AnswerText, delta = delta,
+                correct = correct, risk = risk, hint = hintUsed, seconds = Mathf.RoundToInt(QuestionSeconds - Mathf.Max(0f, timeLeft)), fast = fast
             };
             run.results.Add(res);
             WebBridge.ReportAnswer(res, run.score);
@@ -601,6 +650,7 @@ namespace DataChampions
             if (Current != State.Board && Current != State.Question) return;
             paused = true;
             Time.timeScale = 0f;
+            if (bubble != null) bubble.Hide();
             AudioListener.pause = true;
             pause.Show();
             UIScreen.PopIn(pause.panel, 0f, 0.35f);

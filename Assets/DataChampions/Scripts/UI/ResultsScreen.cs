@@ -127,29 +127,29 @@ namespace DataChampions
         {
             var r = Make<ResultsScreen>(parent, "Results");
             var root = r.transform;
-            var face = UIFactory.Panel(root, "Panel", UIFactory.Center, new Vector2(150, -20), new Vector2(1180, 880), Palette.Cream, Palette.GoldLip, 60, 18f);
+            var face = UIFactory.Panel(root, "Panel", UIFactory.Center, new Vector2(150, -15), new Vector2(1180, 980), Palette.Cream, Palette.GoldLip, 60, 18f);
             r.panel = (RectTransform)face.transform.parent;
             UIFactory.Rounded(UIFactory.Stretch(face.transform, "Frame"), Palette.Gold, 60, 12f);
-            r.ribbon = HowToScreen.Ribbon(r.panel, "SHOW COMPLETE!", new Vector2(0, 430), Palette.Pink, Palette.PinkLip, 700);
+            r.ribbon = HowToScreen.Ribbon(r.panel, "SHOW COMPLETE!", new Vector2(0, 412), Palette.Pink, Palette.PinkLip, 700);
 
             r.stars = new Image[3];
             for (int i = 0; i < 3; i++)
             {
                 float x = (i - 1) * 210f;
-                float y = i == 1 ? 262f : 236f;
-                float s = i == 1 ? 200f : 160f;
+                float y = i == 1 ? 250f : 238f;
+                float s = i == 1 ? 160f : 130f;
                 UIFactory.Icon(r.panel, "StarBack" + i, cfg.S("star"), UIFactory.Center, new Vector2(x, y - 8), s + 14, Palette.WithA(Palette.GoldLip, 0.5f));
                 r.stars[i] = UIFactory.Icon(r.panel, "Star" + i, cfg.S("star"), UIFactory.Center, new Vector2(x, y), s, Palette.Gold);
             }
 
-            var scoreRt = UIFactory.Rect(r.panel, "Score", UIFactory.Center, new Vector2(0, 92), new Vector2(560, 130));
+            var scoreRt = UIFactory.Rect(r.panel, "Score", UIFactory.Center, new Vector2(0, 85), new Vector2(560, 130));
             UIFactory.Rounded(scoreRt, Palette.Hex(0x3A1678), 65);
             UIFactory.Icon(scoreRt, "Coin", cfg.S("fl_coin"), new Vector2(0, 0.5f), new Vector2(72, 0), 110);
             var sl = UIFactory.Text(scoreRt, "Value", "0", UIFactory.Center, new Vector2(50, 4), new Vector2(420, 120), 100, Palette.Gold, TextAlignmentOptions.Center, true);
             r.score = scoreRt.gameObject.AddComponent<CountingLabel>();
             r.score.label = sl;
 
-            r.newBest = UIFactory.Rect(r.panel, "NewBest", UIFactory.Center, new Vector2(390, 120), new Vector2(250, 84));
+            r.newBest = UIFactory.Rect(r.panel, "NewBest", UIFactory.Center, new Vector2(425, 85), new Vector2(240, 80));
             r.newBest.localRotation = Quaternion.Euler(0, 0, -12f);
             UIFactory.Rounded(r.newBest, Palette.Pink, 20);
             UIFactory.Rounded(UIFactory.Stretch(r.newBest, "Edge", 6), Color.white, 16, 4f);
@@ -160,7 +160,7 @@ namespace DataChampions
             var vals = new TextMeshProUGUI[3];
             for (int i = 0; i < 3; i++)
             {
-                var chip = UIFactory.Rect(r.panel, "Stat" + i, UIFactory.Center, new Vector2((i - 1) * 350f, -70), new Vector2(320, 120));
+                var chip = UIFactory.Rect(r.panel, "Stat" + i, UIFactory.Center, new Vector2((i - 1) * 350f, -75), new Vector2(320, 120));
                 UIFactory.Rounded(chip, Color.white, 30);
                 UIFactory.Rounded(UIFactory.Stretch(chip, "Edge"), Palette.Line, 30, 4f);
                 UIFactory.Icon(chip, "Icon", cfg.S(icons[i]), new Vector2(0, 0.5f), new Vector2(56, 0), 74);
@@ -171,13 +171,13 @@ namespace DataChampions
             r.riskText = vals[1];
             r.streakText = vals[2];
 
-            r.badgeRow = UIFactory.Rect(r.panel, "Badges", UIFactory.Center, new Vector2(0, -215), new Vector2(1000, 130));
-            r.badgeHint = UIFactory.Text(r.panel, "BadgeHint", "Win a badge next time: try a Perfect Ten!", UIFactory.Center, new Vector2(0, -215), new Vector2(1000, 60), 38, Palette.InkSoft);
+            r.badgeRow = UIFactory.Rect(r.panel, "Badges", UIFactory.Center, new Vector2(0, -222), new Vector2(1000, 130));
+            r.badgeHint = UIFactory.Text(r.panel, "BadgeHint", "Win a badge next time: try a Perfect Ten!", UIFactory.Center, new Vector2(0, -222), new Vector2(1000, 60), 38, Palette.InkSoft);
 
-            r.again = UIFactory.Button(r.panel, "Again", "PLAY AGAIN", UIFactory.Center, new Vector2(-215, -360), new Vector2(440, 130), Palette.Orange, Palette.OrangeLip, 56, cfg.S("replay"));
+            r.again = UIFactory.Button(r.panel, "Again", "PLAY AGAIN", UIFactory.Center, new Vector2(-215, -385), new Vector2(440, 130), Palette.Orange, Palette.OrangeLip, 56, cfg.S("replay"));
             r.again.GetComponent<UIButtonFX>().idlePulse = true;
-            r.progress = UIFactory.Button(r.panel, "Progress", "PROGRESS", UIFactory.Center, new Vector2(200, -360), new Vector2(350, 130), Palette.Blue, Palette.BlueLip, 40, cfg.S("fl_trophy"));
-            r.home = UIFactory.RoundButton(r.panel, "Home", cfg.S("home"), UIFactory.Center, new Vector2(458, -360), 124, Palette.Purple, Palette.PurpleLip);
+            r.progress = UIFactory.Button(r.panel, "Progress", "PROGRESS", UIFactory.Center, new Vector2(200, -385), new Vector2(350, 130), Palette.Blue, Palette.BlueLip, 40, cfg.S("fl_trophy"));
+            r.home = UIFactory.RoundButton(r.panel, "Home", cfg.S("home"), UIFactory.Center, new Vector2(458, -385), 124, Palette.Purple, Palette.PurpleLip);
 
             r.owl = Owl.Build(root, "Owl", new Vector2(0.5f, 0f), new Vector2(-790, 10), 0.82f);
             r.bubble = SpeechBubble.Build(root, "Bubble", new Vector2(0.5f, 0f), new Vector2(-800, 520), new Vector2(0.5f, 0f), 360, 34, true);
