@@ -343,9 +343,9 @@ namespace DataChampions.EditorTools
             try { PlayerSettings.SplashScreen.show = false; } catch (System.Exception e) { Debug.LogWarning("[DataChampions] splash: " + e.Message); }
             // full-window, landscape-first page with an Edovu loader (Assets/WebGLTemplates/DataChampions)
             PlayerSettings.WebGL.template = "PROJECT:DataChampions";
-            // Uncompressed output: plain .data/.wasm/.framework.js files that the post-build "WebGL auto fix" tool
-            // renames to build.*, and that run on any static server (Live Server, LMS) without Content-Encoding headers.
-            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
+            // Compression (Brotli / Gzip / Disabled) is left as the user sets it in Player Settings; no decompression
+            // fallback, so the files keep plain .br/.gz names that the post-build "WebGL auto fix" tool understands
+            // (the fallback would name them .unityweb, which the tool skips).
             PlayerSettings.WebGL.decompressionFallback = false;
             PlayerSettings.WebGL.dataCaching = true;
             PlayerSettings.WebGL.exceptionSupport = WebGLExceptionSupport.ExplicitlyThrownExceptionsOnly;
