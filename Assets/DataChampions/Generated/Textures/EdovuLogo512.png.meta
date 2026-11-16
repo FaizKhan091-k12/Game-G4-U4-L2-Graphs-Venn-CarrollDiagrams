@@ -1,0 +1,1196 @@
+fileFormatVersion: 2
+guid: c6838aff7c4e0b948a6bc9750133270f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6256275582260375271
+    second: EdovuLogo512_0
+  - first:
+      213: 6176651379171640918
+    second: EdovuLogo512_1
+  - first:
+      213: -299898036300867083
+    second: EdovuLogo512_2
+  - first:
+      213: 93378525564695029
+    second: EdovuLogo512_3
+  - first:
+      213: 2029091479443964825
+    second: EdovuLogo512_4
+  - first:
+      213: -1335184988601019040
+    second: EdovuLogo512_5
+  - first:
+      213: 3820829190287376216
+    second: EdovuLogo512_6
+  - first:
+      213: -5111072394017502763
+    second: EdovuLogo512_7
+  - first:
+      213: 10218647744883589
+    second: EdovuLogo512_8
+  - first:
+      213: 8823677855498317019
+    second: EdovuLogo512_9
+  - first:
+      213: 5099403507982174115
+    second: EdovuLogo512_10
+  - first:
+      213: 3674018542206641987
+    second: EdovuLogo512_11
+  - first:
+      213: 4714332388284182537
+    second: EdovuLogo512_12
+  - first:
+      213: -4879148521560006734
+    second: EdovuLogo512_13
+  - first:
+      213: -1145674355723549778
+    second: EdovuLogo512_14
+  - first:
+      213: 9005899663284985097
+    second: EdovuLogo512_15
+  - first:
+      213: -1653147157809884993
+    second: EdovuLogo512_16
+  - first:
+      213: 2473493428089043799
+    second: EdovuLogo512_17
+  - first:
+      213: 8109377224396124577
+    second: EdovuLogo512_18
+  - first:
+      213: 7614152810795692472
+    second: EdovuLogo512_19
+  - first:
+      213: -5629658118608219500
+    second: EdovuLogo512_20
+  - first:
+      213: 4605746822679907771
+    second: EdovuLogo512_21
+  - first:
+      213: 5605478962273450225
+    second: EdovuLogo512_22
+  - first:
+      213: 3722244621906960391
+    second: EdovuLogo512_23
+  - first:
+      213: 1816809649389607141
+    second: EdovuLogo512_24
+  - first:
+      213: -8806925703359963853
+    second: EdovuLogo512_25
+  - first:
+      213: -8931243133553947653
+    second: EdovuLogo512_26
+  - first:
+      213: 3106207915337435710
+    second: EdovuLogo512_27
+  - first:
+      213: 6603143184892661957
+    second: EdovuLogo512_28
+  - first:
+      213: -3709776756231459421
+    second: EdovuLogo512_29
+  - first:
+      213: 1579848813719105375
+    second: EdovuLogo512_30
+  - first:
+      213: 6071743071404032764
+    second: EdovuLogo512_31
+  - first:
+      213: -4997409294539274951
+    second: EdovuLogo512_32
+  - first:
+      213: 6310905556043968659
+    second: EdovuLogo512_33
+  - first:
+      213: 8309991618530210337
+    second: EdovuLogo512_34
+  - first:
+      213: 8034683919546870181
+    second: EdovuLogo512_35
+  - first:
+      213: -8123691047967921472
+    second: EdovuLogo512_36
+  - first:
+      213: 6549717999138187911
+    second: EdovuLogo512_37
+  - first:
+      213: 1909811270179860691
+    second: EdovuLogo512_38
+  - first:
+      213: 574591258723599987
+    second: EdovuLogo512_39
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: EdovuLogo512_0
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 172
+        width: 298
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ee6491be71c2d650800000000000000
+      internalID: 6256275582260375271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_1
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 409
+        width: 46
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 656c3fc34bfd7b550800000000000000
+      internalID: 6176651379171640918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_2
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 222
+        width: 184
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f9137d235c86dbf0800000000000000
+      internalID: -299898036300867083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_3
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 85
+        width: 31
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f1fee5364fbb4100800000000000000
+      internalID: 93378525564695029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_4
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 85
+        width: 37
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 993870133f7c82c10800000000000000
+      internalID: 2029091479443964825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_5
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 85
+        width: 37
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0659005b358787de0800000000000000
+      internalID: -1335184988601019040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_6
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 85
+        width: 38
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85fb58aa7ef460530800000000000000
+      internalID: 3820829190287376216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_7
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 85
+        width: 36
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d9084dbcb2d119b0800000000000000
+      internalID: -5111072394017502763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_8
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 85
+        width: 32
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58b2be45ecd442000800000000000000
+      internalID: 10218647744883589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_9
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 85
+        width: 26
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdc257d7240047a70800000000000000
+      internalID: 8823677855498317019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_10
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 85
+        width: 32
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a788a30978b4c640800000000000000
+      internalID: 5099403507982174115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_11
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 85
+        width: 31
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 347ec6af56cbcf230800000000000000
+      internalID: 3674018542206641987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_12
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 85
+        width: 31
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9003ccc545cac6140800000000000000
+      internalID: 4714332388284182537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_13
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 85
+        width: 32
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bf1b0e3548c94cb0800000000000000
+      internalID: -4879148521560006734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_14
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 85
+        width: 26
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea3c2d65e3fb910f0800000000000000
+      internalID: -1145674355723549778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_15
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 85
+        width: 30
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90d59e847026bfc70800000000000000
+      internalID: 9005899663284985097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_16
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 53
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb09b413b67de09e0800000000000000
+      internalID: -1653147157809884993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_17
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 53
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75bb28fea2d935220800000000000000
+      internalID: 2473493428089043799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_18
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 53
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a136c9ce9b4a8070800000000000000
+      internalID: 8109377224396124577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_19
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 53
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b1f401d3a7eaa960800000000000000
+      internalID: 7614152810795692472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_20
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 53
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4929671b4cf6fd1b0800000000000000
+      internalID: -5629658118608219500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_21
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 53
+        width: 7
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbd483b3556eaef30800000000000000
+      internalID: 4605746822679907771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_22
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 53
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f8fb36ca69aacd40800000000000000
+      internalID: 5605478962273450225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_23
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 53
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7006fd723c118a330800000000000000
+      internalID: 3722244621906960391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_24
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 53
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e89e5010ca963910800000000000000
+      internalID: 1816809649389607141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_25
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 53
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33dd8ffdbb387c580800000000000000
+      internalID: -8806925703359963853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_26
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 53
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfbced590b9dd0480800000000000000
+      internalID: -8931243133553947653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_27
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 53
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3ac13044a77b1b20800000000000000
+      internalID: 3106207915337435710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_28
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 53
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c09190edb313ab50800000000000000
+      internalID: 6603143184892661957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_29
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 53
+        width: 7
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ada2d802b9348cc0800000000000000
+      internalID: -3709776756231459421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_30
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 53
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5fac8c2020cce510800000000000000
+      internalID: 1579848813719105375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_31
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 53
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf20a7a672a234450800000000000000
+      internalID: 6071743071404032764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_32
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 53
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93540c959b2a5aab0800000000000000
+      internalID: -4997409294539274951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_33
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 53
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3903a07aa27d49750800000000000000
+      internalID: 6310905556043968659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_34
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 53
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12277fc4955035370800000000000000
+      internalID: 8309991618530210337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_35
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 53
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a9622b847ee08f60800000000000000
+      internalID: 8034683919546870181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_36
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 53
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cae9d4780ad24f80800000000000000
+      internalID: -8123691047967921472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_37
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 53
+        width: 6
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a2d9d71d545ea50800000000000000
+      internalID: 6549717999138187911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_38
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 53
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d0bb1b4b33018a10800000000000000
+      internalID: 1909811270179860691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdovuLogo512_39
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 53
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 376c34b94bb59f700800000000000000
+      internalID: 574591258723599987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      EdovuLogo512_0: 6256275582260375271
+      EdovuLogo512_1: 6176651379171640918
+      EdovuLogo512_10: 5099403507982174115
+      EdovuLogo512_11: 3674018542206641987
+      EdovuLogo512_12: 4714332388284182537
+      EdovuLogo512_13: -4879148521560006734
+      EdovuLogo512_14: -1145674355723549778
+      EdovuLogo512_15: 9005899663284985097
+      EdovuLogo512_16: -1653147157809884993
+      EdovuLogo512_17: 2473493428089043799
+      EdovuLogo512_18: 8109377224396124577
+      EdovuLogo512_19: 7614152810795692472
+      EdovuLogo512_2: -299898036300867083
+      EdovuLogo512_20: -5629658118608219500
+      EdovuLogo512_21: 4605746822679907771
+      EdovuLogo512_22: 5605478962273450225
+      EdovuLogo512_23: 3722244621906960391
+      EdovuLogo512_24: 1816809649389607141
+      EdovuLogo512_25: -8806925703359963853
+      EdovuLogo512_26: -8931243133553947653
+      EdovuLogo512_27: 3106207915337435710
+      EdovuLogo512_28: 6603143184892661957
+      EdovuLogo512_29: -3709776756231459421
+      EdovuLogo512_3: 93378525564695029
+      EdovuLogo512_30: 1579848813719105375
+      EdovuLogo512_31: 6071743071404032764
+      EdovuLogo512_32: -4997409294539274951
+      EdovuLogo512_33: 6310905556043968659
+      EdovuLogo512_34: 8309991618530210337
+      EdovuLogo512_35: 8034683919546870181
+      EdovuLogo512_36: -8123691047967921472
+      EdovuLogo512_37: 6549717999138187911
+      EdovuLogo512_38: 1909811270179860691
+      EdovuLogo512_39: 574591258723599987
+      EdovuLogo512_4: 2029091479443964825
+      EdovuLogo512_5: -1335184988601019040
+      EdovuLogo512_6: 3820829190287376216
+      EdovuLogo512_7: -5111072394017502763
+      EdovuLogo512_8: 10218647744883589
+      EdovuLogo512_9: 8823677855498317019
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

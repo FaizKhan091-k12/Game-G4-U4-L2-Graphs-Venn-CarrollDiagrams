@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="screen-orientation" content="landscape">
+    <title>{{{ PRODUCT_NAME }}}</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.png">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <!-- Same structure as Unity's Default template (buildUrl / loaderUrl / config lines), so post-build tools that
+         rename the Build files and rewrite those lines keep working. -->
+    <div id="unity-container">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <img id="unity-logo" src="TemplateData/edovu-logo.png" alt="Edovu Ventures">
+        <div id="unity-progress-bar-empty"><div id="unity-progress-bar-full"></div></div>
+        <div id="unity-loading-message">Loading Data Champions...</div>
+        <div id="unity-rotate-hint">Tip: turn your device sideways to play</div>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer"></div>
+    </div>
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
+
+      // Warnings are logged, not shown over the game (children should never see a banner).
+      function unityShowBanner(msg, type) {
+        var warningBanner = document.querySelector("#unity-warning");
+        warningBanner.style.display = 'none';
+        if (type == 'error') document.querySelector("#unity-loading-message").textContent = msg;
+        console.warn(msg);
+      }
+
+      var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.platform));
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+        frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_THREADS
+        workerUrl: buildUrl + "/{{{ WORKER_FILENAME }}}",
+#endif
+#if USE_WASM
+        codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+        symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+#endif
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+        productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+        productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+        showBanner: unityShowBanner,
+        matchWebGLToCanvasSize: true,
+        // Cap the render resolution: crisp UI on most screens, cheap fill rate on low-end GPUs and 4K laptops.
+        devicePixelRatio: Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 1.75),
+      };
+
+      function setProgress(p) {
+        document.querySelector("#unity-progress-bar-full").style.width = Math.round(100 * p) + "%";
+      }
+
+      // Try to lock landscape on phones (works in fullscreen / installed web apps; harmless elsewhere).
+      function tryLandscape() {
+        try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock("landscape").catch(function () {}); } catch (e) {}
+      }
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = function () {
+        createUnityInstance(canvas, config, setProgress).then(function (unityInstance) {
+          setProgress(1);
+          document.querySelector("#unity-loading-bar").classList.add("done");
+          canvas.focus();
+        }).catch(function (message) {
+          document.querySelector("#unity-loading-message").textContent = "Sorry, the game could not start: " + message;
+        });
+      };
+      document.body.appendChild(script);
+
+      // keep keyboard focus on the game after taps, and stop the page from scrolling/zooming on phones
+      canvas.addEventListener("pointerdown", function () { canvas.focus(); if (isMobile) tryLandscape(); });
+      document.addEventListener("gesturestart", function (e) { e.preventDefault(); });
+      document.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });
+    </script>
+  </body>
+</html>

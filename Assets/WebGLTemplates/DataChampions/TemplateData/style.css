@@ -1,0 +1,22 @@
+/* Data Champions web page: the game fills the whole browser window (or LMS iframe) at any size.
+   The game itself is landscape-first and shows a "turn your device" prompt when held upright. */
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #ffffff; }
+body { position: fixed; top: 0; right: 0; bottom: 0; left: 0; touch-action: none; -webkit-user-select: none; user-select: none;
+       -webkit-tap-highlight-color: transparent; overscroll-behavior: none; }
+#unity-container { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+#unity-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; outline: none;
+                background: #ffffff; touch-action: none; }
+#unity-warning, #unity-footer { display: none; }
+
+/* Loading screen: Edovu logo + progress bar on white (the in-game splash continues with the same look). */
+#unity-loading-bar { position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; flex-direction: column;
+                     align-items: center; justify-content: center; gap: 3.2vmin; background: #ffffff;
+                     font-family: "Trebuchet MS", Arial, sans-serif; color: #1f2a38; transition: opacity 0.4s; z-index: 2; }
+#unity-loading-bar.done { opacity: 0; pointer-events: none; }
+#unity-logo { width: min(46vmin, 360px); height: auto; animation: dc-pop 0.7s cubic-bezier(.2, 1.6, .4, 1) both; }
+#unity-progress-bar-empty { width: min(56vw, 440px); height: 18px; border-radius: 9px; background: #ede7f6; overflow: hidden; }
+#unity-progress-bar-full { width: 0%; height: 100%; background: linear-gradient(90deg, #ff8a1f, #ff6a00); border-radius: 9px; transition: width 0.25s; }
+#unity-loading-message { font-size: clamp(14px, 3vmin, 22px); font-weight: bold; }
+#unity-rotate-hint { display: none; font-size: clamp(13px, 2.6vmin, 18px); color: #6b5fa0; }
+@media (orientation: portrait) { #unity-rotate-hint { display: block; } }
+@keyframes dc-pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
