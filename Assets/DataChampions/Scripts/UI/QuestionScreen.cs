@@ -26,10 +26,15 @@ namespace DataChampions
         public Image[] answerMarks;
         public Owl owl;
         public SpeechBubble bubble;
+        // cover hiding the diagram until SAFE / RISK IT is chosen
+        public RectTransform cover, coverIconBg;
+        public Image coverIcon;
+        public TextMeshProUGUI coverTag, coverPoints;
 
         [System.NonSerialized] public DiagramView diagram;
-        Tween typeTween, timerPulse;
+        Tween typeTween, timerPulse, coverBob;
         Vector2 cardHome, panelHome;
+        string questionLine;
 
         void Awake()
         {
@@ -50,8 +55,18 @@ namespace DataChampions
             pointsText.text = "TILE " + tileNumber + "  •  " + points;
             pointsFace.color = Palette.TileFace(points);
 
-            questionText.text = q.text;
-            questionText.maxVisibleCharacters = 0;
+            // the question stays hidden until the wager is made
+            questionLine = q.text;
+            questionText.text = "?   ?   ?";
+            questionText.color = Palette.Line;
+            questionText.maxVisibleCharacters = 99999;
+            replay.gameObject.SetActive(false);
+
+            cover.gameObject.SetActive(true);
+            cover.localScale = Vector3.one;
+            coverIcon.sprite = GameConfig.Get(Skills.Icons[q.skill]);
+            coverTag.text = Skills.Tags[q.skill];
+            coverPoints.text = "TILE " + tileNumber + "  •  " + points + " COINS";
 
             bool numeric = int.TryParse(options[0], out _);
             for (int i = 0; i < AnswerCount; i++)
@@ -80,8 +95,8 @@ namespace DataChampions
             StopTimer(true);
         }
 
-        /// <summary>Card slides in, diagram builds, question card drops and types out.</summary>
-        public float PlayIntro()
+        /// <summary>Card (still covered) slides in, the empty question card drops in, Professor Hoot arrives.</summary>
+        public void PlayIntro()
         {
             card.DOKill();
             questionPanel.DOKill();
@@ -90,15 +105,37 @@ namespace DataChampions
             SlideIn(card, new Vector2(-900, 0), 0f, 0.55f, false);
             PopIn(tab, 0.35f, 0.35f, false);
             PopIn(pointsChip, 0.45f, 0.35f, false);
+            PopIn(coverIconBg, 0.45f, 0.45f, false);
+            coverBob?.Kill();
+            coverIconBg.anchoredPosition = new Vector2(0, 150);
+            coverBob = coverIconBg.DOAnchorPosY(166f, 0.9f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetDelay(0.9f).SetLink(gameObject);
             SlideIn(questionPanel, new Vector2(0, 420), 0.2f, 0.5f, false);
-            float introStart = 0.4f;
-            DOVirtual.DelayedCall(introStart, () => { if (diagram != null) diagram.PlayIntro(); }).SetLink(gameObject);
-            typeTween?.Kill();
-            int n = questionText.text.Length;
-            typeTween = DOTween.To(() => questionText.maxVisibleCharacters, x => questionText.maxVisibleCharacters = x, n, Mathf.Clamp(n * 0.025f, 0.6f, 1.6f))
-                .SetDelay(0.55f).SetEase(Ease.Linear).SetLink(gameObject);
             owl.Enter(0.1f);
-            return introStart + (diagram != null ? diagram.IntroDuration : 1f);
+        }
+
+        /// <summary>
+        /// After the wager: the cover rolls up, the diagram builds and the question types out.
+        /// Returns how long the diagram build takes.
+        /// </summary>
+        public float Reveal()
+        {
+            coverBob?.Kill();
+            cover.DOKill();
+            var s = DOTween.Sequence().SetLink(gameObject);
+            s.Append(cover.DOScaleY(0f, 0.4f).SetEase(Ease.InBack));
+            s.AppendCallback(() => cover.gameObject.SetActive(false));
+            DOVirtual.DelayedCall(0.3f, () => { if (diagram != null) diagram.PlayIntro(); }).SetLink(gameObject);
+
+            questionText.text = questionLine;
+            questionText.color = Palette.Ink;
+            questionText.maxVisibleCharacters = 0;
+            typeTween?.Kill();
+            int n = questionLine.Length;
+            typeTween = DOTween.To(() => questionText.maxVisibleCharacters, x => questionText.maxVisibleCharacters = x, n, Mathf.Clamp(n * 0.022f, 0.5f, 1.4f))
+                .SetDelay(0.2f).SetEase(Ease.Linear).SetLink(gameObject);
+            replay.gameObject.SetActive(true);
+            PopIn(replay.transform, 0.4f, 0.3f, false);
+            return 0.3f + (diagram != null ? diagram.IntroDuration : 1f);
         }
 
         /// <summary>Caption strip under the diagram: pops in once, then just updates (running count, final sum).</summary>
@@ -119,7 +156,7 @@ namespace DataChampions
             }
         }
 
-        public void ShowWager(bool riskUnlocked, int points, bool hintAvailable)
+        public void ShowWager(bool riskUnlocked, int points)
         {
             wagerGroup.gameObject.SetActive(true);
             safeSub.text = "WIN " + points;
@@ -140,7 +177,6 @@ namespace DataChampions
             PopIn(risk.transform, 0.15f);
             var label = wagerGroup.Find("Label");
             if (label != null) PopIn(label, 0f);
-            ShowHintButton(hintAvailable);
         }
 
         public void ShowHintButton(bool available)
@@ -306,6 +342,19 @@ namespace DataChampions
             q.captionText.rectTransform.offsetMax = new Vector2(-24, 0);
             q.captionText.enableAutoSizing = true; q.captionText.fontSizeMax = 38; q.captionText.fontSizeMin = 22;
             q.caption.gameObject.SetActive(false);
+
+            // cover over the diagram area (below the header row) until SAFE / RISK IT is chosen; rolls up on reveal
+            q.cover = UIFactory.Rect(q.card, "Cover", UIFactory.Center, new Vector2(0, 345), new Vector2(984, 772), new Vector2(0.5f, 1f));
+            UIFactory.Rounded(UIFactory.Stretch(q.cover, "Face"), Palette.Hex(0x3A1678), 30);
+            UIFactory.Rounded(UIFactory.Stretch(q.cover, "Frame"), Palette.Gold, 30, 6f);
+            UIFactory.Text(q.cover, "Q1", "?", UIFactory.Center, new Vector2(-330, 200), new Vector2(260, 300), 260, Palette.WithA(Color.white, 0.07f));
+            UIFactory.Text(q.cover, "Q2", "?", UIFactory.Center, new Vector2(340, -220), new Vector2(240, 280), 220, Palette.WithA(Color.white, 0.07f));
+            q.coverIconBg = UIFactory.Rect(q.cover, "IconBg", UIFactory.Center, new Vector2(0, 150), new Vector2(190, 190));
+            UIFactory.Rounded(q.coverIconBg, Color.white, -1);
+            q.coverIcon = UIFactory.Icon(q.coverIconBg, "Icon", cfg.S("mini_venn"), UIFactory.Center, Vector2.zero, 120, Palette.Purple);
+            q.coverTag = UIFactory.Text(q.cover, "Tag", "VENN DIAGRAM", UIFactory.Center, new Vector2(0, -6), new Vector2(900, 90), 70, Color.white, TextAlignmentOptions.Center, true);
+            q.coverPoints = UIFactory.Text(q.cover, "Points", "TILE 1  •  200 COINS", UIFactory.Center, new Vector2(0, -86), new Vector2(900, 60), 44, Palette.GoldLight, TextAlignmentOptions.Center, true);
+            UIFactory.Paragraph(q.cover, "Hint", "Choose SAFE or RISK IT to see the question!", UIFactory.Center, new Vector2(0, -200), new Vector2(820, 110), 42, 28, Palette.WithA(Color.white, 0.92f));
 
             // ---- question card
             var qp = UIFactory.Panel(root, "QuestionPanel", UIFactory.Center, new Vector2(540, 270), new Vector2(720, 280), Color.white, Palette.Line, 40, 10f);

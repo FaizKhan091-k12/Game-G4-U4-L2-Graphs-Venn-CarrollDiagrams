@@ -17,7 +17,7 @@ namespace DataChampions
         public const int StreakBonus = 50;
         public const int SpeedBonus = 50;
         public const float QuestionSeconds = 45f;
-        public const float FastSeconds = 15f;
+        public const float FastSeconds = 20f;   // counted from the moment the question is revealed (reading included)
         const int TimeOut = -2;
 
         public GameConfig config;
@@ -101,7 +101,7 @@ namespace DataChampions
             title.progress.onClick.AddListener(() => { title.bubble.Hide(); progress.Show(); });
             title.sound.onClick.AddListener(ToggleSound);
             howTo.go.onClick.AddListener(CloseHowTo);
-            board.help.onClick.AddListener(() => { startAfterHowTo = false; board.bubble.Hide(); howTo.Show(); howTo.PlayIntro(); Speak("howto"); });
+            board.help.onClick.AddListener(() => { startAfterHowTo = false; board.bubble.Hide(); howTo.Show(); howTo.PlayIntro(); Speak("howto", false); });
             hud.pause.onClick.AddListener(Pause);
             pause.resume.onClick.AddListener(Resume);
             pause.restart.onClick.AddListener(() => { Resume(); StopFlow(); BeginRun(); });
@@ -211,7 +211,7 @@ namespace DataChampions
                 howTo.Show();
                 howTo.PlayIntro();
                 GameAudio.I?.StopVoice();
-                Speak("howto");
+                Speak("howto", false);
                 return;
             }
             BeginRun();
@@ -339,29 +339,19 @@ namespace DataChampions
             fader.FadeIn(0.25f);
             GameAudio.I?.PlayMusic(Music.Think);
             studio.SetIntensity(0.55f);
-            float introT = question.PlayIntro();
+            question.PlayIntro();   // diagram card arrives covered: only the type and points are visible
             GameAudio.I?.Play(Sfx.Slide);
             busy = false;
-            yield return new WaitForSeconds(0.55f);
-            Speak(q.QuestionVoice, false);
-            yield return new WaitForSeconds(Mathf.Max(introT - 0.55f, 0.7f));
+            yield return new WaitForSeconds(0.6f);
 
-            // --- SAFE or RISK IT
+            // --- SAFE or RISK IT, decided BEFORE the question is seen (no free thinking time)
             wagerChoice = -1;
             hintUsed = false;
-            question.ShowWager(run.score >= points, points, run.score >= HintCost);
+            question.ShowWager(run.score >= points, points);
             question.owl.Think();
-            float waitStart = Time.time;
-            bool prompted = false;
-            while (wagerChoice < 0)
-            {
-                if (!prompted && run.answered < 2 && Time.time - waitStart > 0.4f && !GameAudio.I.IsVoicePlaying)
-                {
-                    prompted = true;
-                    Speak("choose_wager");
-                }
-                yield return null;
-            }
+            if (run.answered < 2) Speak("choose_wager");
+            else question.bubble.Say(VoiceText.Get("choose_wager"), 2f);
+            while (wagerChoice < 0) yield return null;
             bool risk = wagerChoice == 1;
             question.ChooseWager(risk);
             if (risk)
@@ -377,18 +367,35 @@ namespace DataChampions
                 GameAudio.I?.Play(Sfx.Safe);
                 UIFx.Burst(question.safe.transform.position, Palette.Safe, 10, 150f);
             }
-            if (!GameAudio.I.IsVoicePlaying || GameAudio.I.CurrentLine == "choose_wager") Speak(risk ? "risk" : "safe");
-            yield return new WaitForSeconds(0.35f);
+            Speak(risk ? "risk" : "safe");
+            yield return new WaitForSeconds(0.45f);
 
-            // --- answer against the clock
+            // --- reveal: the cover lifts, the diagram builds, and the clock starts straight away
+            float introT = question.Reveal();
+            GameAudio.I?.Play(Sfx.Whoosh, 1f, 0.7f);
             answerChoice = -1;
-            question.ShowAnswers();
-            question.ShowTimer(QuestionSeconds);
             timeLeft = QuestionSeconds;
+            question.ShowTimer(QuestionSeconds);
+            float elapsed = 0f;
+            float answersAt = Mathf.Max(0.8f, introT * 0.75f);
+            bool answersShown = false, questionRead = false;
             int lastTick = -1;
             while (answerChoice < 0)
             {
-                timeLeft -= Time.deltaTime;
+                float dt = Time.deltaTime;
+                elapsed += dt;
+                timeLeft -= dt;
+                if (!questionRead && (elapsed > 1.6f || !GameAudio.I.IsVoicePlaying))
+                {
+                    questionRead = true;
+                    Speak(q.QuestionVoice, false);
+                }
+                if (!answersShown && elapsed >= answersAt)
+                {
+                    answersShown = true;
+                    question.ShowAnswers();
+                    question.ShowHintButton(run.score >= HintCost);
+                }
                 question.SetTimer(timeLeft, QuestionSeconds);
                 int secs = Mathf.CeilToInt(timeLeft);
                 if (secs <= 5 && secs >= 1 && secs != lastTick)
@@ -399,6 +406,7 @@ namespace DataChampions
                 if (timeLeft <= 0f)
                 {
                     answerChoice = TimeOut;
+                    if (!answersShown) question.ShowAnswers();
                     break;
                 }
                 yield return null;

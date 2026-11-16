@@ -12,7 +12,7 @@ namespace DataChampions
         {
             { "welcome", "Welcome to Data Champions! I'm Professor Hoot. Let's read some graphs and diagrams!" },
             { "welcome_back", "Welcome back, champion! Ready for another round?" },
-            { "howto", "Pick a tile. Read the diagram carefully. Then play it SAFE, or RISK IT for double points!" },
+            { "howto", "Pick a tile. Choose SAFE, or RISK IT for double points, before you see the question! Then read the diagram and answer before time runs out." },
             { "pick_tile", "Pick a tile!" },
             { "pick_tile2", "Which tile next?" },
             { "last_tile", "Last tile! Make it count!" },

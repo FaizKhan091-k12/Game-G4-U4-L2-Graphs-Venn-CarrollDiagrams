@@ -30,8 +30,8 @@ namespace DataChampions
             UIFactory.Rounded(UIFactory.Stretch(face, "Frame"), Palette.Gold, 56, 10f);
             Ribbon(h.panel, "HOW TO PLAY", new Vector2(0, 372), Palette.Purple, Palette.PurpleLip, 640);
 
-            string[] titles = { "Pick a tile", "Read the diagram", "Play SAFE or RISK IT" };
-            string[] lines = { "Every tile hides a question. Bigger tiles win more coins!", "Check the key and labels. You have 45 seconds!", "RISK IT doubles your coins, but a wrong answer loses them!" };
+            string[] titles = { "Pick a tile", "SAFE or RISK IT?", "Read and answer" };
+            string[] lines = { "Every tile hides a question. Bigger tiles win more coins!", "Choose BEFORE you see the question. RISK IT wins double, or loses the coins!", "The clock starts when the question appears: 45 seconds!" };
             h.steps = new RectTransform[3];
             for (int i = 0; i < 3; i++)
             {
@@ -49,7 +49,7 @@ namespace DataChampions
                     var pts = UIFactory.Text(tile.transform, "P", "200", new Vector2(0.5f, 0f), new Vector2(0, 30), new Vector2(160, 40), 34, Palette.GoldLight, TextAlignmentOptions.Center, true);
                     UIFactory.Icon(art, "Sparkles", cfg.S("fl_sparkles"), UIFactory.Center, new Vector2(100, -60), 90);
                 }
-                else if (i == 1) UIFactory.Icon(art, "Chart", cfg.S("fl_bar_chart"), UIFactory.Center, Vector2.zero, 190);
+                else if (i == 2) UIFactory.Icon(art, "Chart", cfg.S("fl_bar_chart"), UIFactory.Center, Vector2.zero, 190);
                 else
                 {
                     UIFactory.Icon(art, "Shield", cfg.S("fl_shield"), UIFactory.Center, new Vector2(-70, 0), 136);
@@ -61,7 +61,7 @@ namespace DataChampions
             var rule = UIFactory.Rect(h.panel, "Rule", UIFactory.Center, new Vector2(0, -232), new Vector2(1240, 70));
             UIFactory.Rounded(rule, Palette.Hex(0xFFF1CF), 35);
             UIFactory.Icon(rule, "Bulb", cfg.S("fl_light_bulb"), new Vector2(0, 0.5f), new Vector2(50, 0), 58);
-            UIFactory.Label(rule, "T", "Answer in 15 seconds: +50.  3 in a row: +50.  A hint costs 50.", 34, Palette.Ink).rectTransform.offsetMin = new Vector2(70, 0);
+            UIFactory.Label(rule, "T", "Right within 20 seconds: +50.  3 in a row: +50.  A hint costs 50.", 34, Palette.Ink).rectTransform.offsetMin = new Vector2(70, 0);
             h.go = UIFactory.Button(h.panel, "Go", "LET'S GO!", UIFactory.Center, new Vector2(0, -352), new Vector2(460, 130), Palette.Green, Palette.GreenLip, 64, cfg.S("play"));
             return h;
         }
