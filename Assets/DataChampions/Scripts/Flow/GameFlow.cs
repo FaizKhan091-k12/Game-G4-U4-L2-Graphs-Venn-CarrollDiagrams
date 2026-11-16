@@ -121,6 +121,18 @@ namespace DataChampions
             results.progress.onClick.AddListener(() => { results.bubble.Hide(); progress.Show(); });
             results.home.onClick.AddListener(() => GoTitle(true));
             progress.close.onClick.AddListener(() => progress.Hide());
+            progress.reset.onClick.AddListener(() => progress.AskReset());
+            progress.confirmNo.onClick.AddListener(() => progress.CloseConfirm());
+            progress.confirmYes.onClick.AddListener(() =>
+            {
+                SaveSystem.ResetProgress();
+                progress.CloseConfirm();
+                progress.Refresh();
+                title.best.text = "Best: 0";
+                GameAudio.I?.Play(Sfx.Whoosh);
+                UIFx.Burst(progress.panel.position, Palette.Gold, 14, 260f);
+                WebBridge.ReportReset();
+            });
         }
 
         void Update()

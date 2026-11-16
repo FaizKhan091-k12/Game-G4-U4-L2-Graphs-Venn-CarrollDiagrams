@@ -59,6 +59,16 @@ namespace DataChampions
             }));
         }
 
+        [System.Serializable]
+        class ResetReport
+        {
+            public string game = "DataChampions";
+            public string eventName = "progressReset";
+        }
+
+        /// <summary>Tells the host page the player wiped their saved progress.</summary>
+        public static void ReportReset() => Send(JsonUtility.ToJson(new ResetReport()));
+
         static void Send(string json)
         {
 #if UNITY_WEBGL && !UNITY_EDITOR

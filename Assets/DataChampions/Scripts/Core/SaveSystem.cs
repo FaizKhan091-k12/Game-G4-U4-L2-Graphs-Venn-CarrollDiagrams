@@ -99,6 +99,17 @@ namespace DataChampions
             return fresh;
         }
 
+        /// <summary>
+        /// Clears all progress (games, scores, stars, skills, badges, history). The sound setting is kept;
+        /// "How to play" will show again for the next player.
+        /// </summary>
+        public static void ResetProgress()
+        {
+            bool sound = Data == null || Data.soundOn;
+            Data = new SaveData { soundOn = sound };
+            Save();
+        }
+
 #if UNITY_EDITOR
         public static void ResetForTests()
         {

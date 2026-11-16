@@ -17,9 +17,28 @@ namespace DataChampions
         public TextMeshProUGUI[] skillPct;
         public RectTransform badgeShelf, recentList;
         public TextMeshProUGUI recentEmpty;
-        public Button close;
+        public Button close, reset, confirmYes, confirmNo;
+        public RectTransform confirm, confirmPanel;
 
         const float BarWidth = 280f;
+
+        /// <summary>Opens the "Reset all progress?" check (a tap by mistake must not wipe anything).</summary>
+        public void AskReset()
+        {
+            confirm.gameObject.SetActive(true);
+            var cg = confirm.GetComponent<CanvasGroup>();
+            cg.DOKill();
+            cg.alpha = 0f;
+            cg.DOFade(1f, 0.2f).SetUpdate(true);
+            PopIn(confirmPanel, 0f, 0.35f);
+        }
+
+        public void CloseConfirm()
+        {
+            var cg = confirm.GetComponent<CanvasGroup>();
+            cg.DOKill();
+            cg.DOFade(0f, 0.15f).SetUpdate(true).OnComplete(() => confirm.gameObject.SetActive(false));
+        }
 
         public void Refresh()
         {
@@ -70,6 +89,7 @@ namespace DataChampions
         public override void Show(bool instant = false)
         {
             base.Show(instant);
+            confirm.gameObject.SetActive(false);
             PopIn(panel, 0f, 0.45f);
             Refresh();
         }
@@ -122,6 +142,26 @@ namespace DataChampions
             }
             UIFactory.Text(p.panel, "BadgesTitle", "Badges", UIFactory.Center, new Vector2(380, -58), new Vector2(700, 60), 44, Palette.Ink);
             p.badgeShelf = UIFactory.Rect(p.panel, "Shelf", UIFactory.Center, new Vector2(380, -245), new Vector2(700, 300));
+
+            // reset (bottom-left, under the recent games) + its confirmation
+            p.reset = UIFactory.Button(p.panel, "Reset", "RESET PROGRESS", UIFactory.Center, new Vector2(-430, -400), new Vector2(380, 76),
+                Palette.Wrong, Palette.WrongLip, 32, cfg.S("replay"), 8f);
+            p.reset.GetComponent<UIButtonFX>().burst = false;
+
+            p.confirm = UIFactory.Stretch(p.transform, "Confirm");
+            p.confirm.gameObject.AddComponent<CanvasGroup>();
+            UIFactory.Dim(p.confirm, 0.55f).raycastTarget = true;
+            var cf = UIFactory.Panel(p.confirm, "Panel", UIFactory.Center, new Vector2(0, 0), new Vector2(820, 420), Palette.Cream, Palette.GoldLip, 48, 14f);
+            p.confirmPanel = (RectTransform)cf.transform.parent;
+            UIFactory.Rounded(UIFactory.Stretch(cf.transform, "Frame"), Palette.Gold, 48, 10f);
+            UIFactory.Text(p.confirmPanel, "Title", "Reset all progress?", UIFactory.Center, new Vector2(0, 122), new Vector2(740, 70), 52, Palette.Ink);
+            UIFactory.Paragraph(p.confirmPanel, "Text", "Games, best score, stars, skills and badges will all go back to zero.",
+                UIFactory.Center, new Vector2(0, 32), new Vector2(700, 100), 34, 24, Palette.InkSoft);
+            p.confirmNo = UIFactory.Button(p.confirmPanel, "Cancel", "CANCEL", UIFactory.Center, new Vector2(-172, -118), new Vector2(290, 96),
+                Palette.Blue, Palette.BlueLip, 40, null, 10f);
+            p.confirmYes = UIFactory.Button(p.confirmPanel, "Yes", "YES, RESET", UIFactory.Center, new Vector2(168, -118), new Vector2(310, 96),
+                Palette.Wrong, Palette.WrongLip, 40, null, 10f);
+            p.confirm.gameObject.SetActive(false);
             return p;
         }
     }
