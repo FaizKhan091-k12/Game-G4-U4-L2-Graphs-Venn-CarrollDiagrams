@@ -488,7 +488,7 @@ namespace DataChampions
                     DOVirtual.DelayedCall(0.5f, () => { if (run != null) hud.coins.AnimateTo(run.score, 0.4f); }).SetLink(gameObject);
                     if (run.streak == 3 || run.streak == 5)
                     {
-                        yield return WaitVoice(3f);
+                        yield return WaitVoice(4f);
                         Speak("streak_" + run.streak);
                     }
                 }
@@ -533,7 +533,7 @@ namespace DataChampions
             hud.PunchDot(tile);
 
             // --- explanation on the diagram
-            yield return WaitVoice(3.5f);
+            yield return WaitVoice(5f);
             question.diagram.ClearMarks();
             waitingNext = true;
             if (correct) DOVirtual.DelayedCall(0.5f, () => { if (waitingNext) question.ShowNext(); }).SetLink(gameObject);

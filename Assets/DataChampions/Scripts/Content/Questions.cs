@@ -93,7 +93,7 @@ namespace DataChampions
             {
                 id = 3, diagram = DiagramId.VennNumbers, skill = Skills.Venn, points = 200,
                 text = "How many numbers are odd?",
-                options = QuestionDef.Num(5, 8, 9, 10, 15, 20), answer = 3, unit = "numbers",
+                options = QuestionDef.Num(5, 8, 9, 10, 11, 15), answer = 3, unit = "numbers",
                 hint = "Don't forget the numbers where the two circles overlap!",
                 hintRegions = new[] { "leftCircle" },
                 explain = new[]
@@ -108,14 +108,15 @@ namespace DataChampions
             {
                 id = 4, diagram = DiagramId.BallsBar, skill = Skills.BarChart, points = 100,
                 text = "How many beach balls and volleyballs are there altogether?",
-                options = QuestionDef.Num(3, 5, 6, 7, 8, 9), answer = 3, unit = "balls",
-                hint = "Read across from the top of each bar to the numbers on the side.",
+                // 7 = forgot the scale goes up in 5s (counted lines), 30/40 = one line off, 45 = beach + basket, 15 = difference
+                options = QuestionDef.Num(7, 15, 30, 35, 40, 45), answer = 3, unit = "balls",
+                hint = "The numbers go up in fives. Read across from the top of each bar.",
                 hintRegions = new[] { "axis" },
                 explain = new[]
                 {
                     ExplainStep.ReadBar(0),
                     ExplainStep.ReadBar(1),
-                    ExplainStep.Caption("5 + 2 = 7 balls altogether"),
+                    ExplainStep.Caption("25 + 10 = 35 balls altogether"),
                 }
             },
             new QuestionDef

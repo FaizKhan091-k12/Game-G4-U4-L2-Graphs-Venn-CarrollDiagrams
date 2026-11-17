@@ -205,7 +205,8 @@ namespace DataChampions
             view.AddIntro(lt.rectTransform.parent as RectTransform, DiagramView.IntroKind.Pop, 0.35f);
             view.AddIntro(rtx.rectTransform.parent as RectTransform, DiagramView.IntroKind.Pop, 0.45f);
 
-            const float r = 265f, cy = -20f, cxo = 155f;
+            // only numbers inside the circles (no numbers outside), so the circles sit centred between titles and frame
+            const float r = 265f, cy = -50f, cxo = 155f, dy = cy + 20f;
             var left = UIFactory.Rect(structure, "CircleL", UIFactory.Center, new Vector2(-cxo, cy), new Vector2(r * 2, r * 2));
             UIFactory.Rounded(UIFactory.Stretch(left, "Fill"), Palette.WithA(Palette.VennLeft, 0.17f), -1);
             UIFactory.Rounded(UIFactory.Stretch(left, "Edge"), Palette.VennLeft, -1, 7f);
@@ -218,7 +219,7 @@ namespace DataChampions
             float d = 0.7f;
             void Num(string group, int n, float x, float y)
             {
-                var rt = UIFactory.Rect(layer, "N" + n, UIFactory.Center, new Vector2(x, y), new Vector2(68, 68));
+                var rt = UIFactory.Rect(layer, "N" + n, UIFactory.Center, new Vector2(x, y + dy), new Vector2(68, 68));
                 UIFactory.Rounded(rt, Palette.WithA(Color.white, 0.85f), -1);
                 UIFactory.Label(rt, "T", n.ToString(), 44, Palette.Ink).rectTransform.offsetMin = new Vector2(0, 3);
                 view.AddItem(group, rt);
@@ -228,7 +229,6 @@ namespace DataChampions
             Num("leftOnly", 1, -305, 110); Num("leftOnly", 3, -190, 165); Num("leftOnly", 5, -320, -30); Num("leftOnly", 7, -295, -150); Num("leftOnly", 9, -180, -180);
             Num("both", 11, -40, 95); Num("both", 13, 40, 95); Num("both", 15, 0, -20); Num("both", 17, -40, -135); Num("both", 19, 40, -135);
             Num("rightOnly", 12, 190, 165); Num("rightOnly", 14, 305, 110); Num("rightOnly", 16, 320, -30); Num("rightOnly", 18, 180, -180); Num("rightOnly", 20, 295, -150);
-            for (int i = 0; i < 5; i++) Num("outside", 2 + i * 2, -240 + i * 120, -326);
 
             view.AddRegion("leftCircle", R(-cxo, cy, r * 2, r * 2), true);
             view.AddRegion("rightCircle", R(cxo, cy, r * 2, r * 2), true);
@@ -238,13 +238,15 @@ namespace DataChampions
 
         static void Bars()
         {
+            // scale goes up in 5s: 0, 5, 10 ... 30
+            const int scaleStep = 5, scaleMax = 30;
             float x0 = -330f, y0 = -215f, top = 305f, xEnd = 460f;
-            float unit = (top - y0) / 6f;
+            float unit = (top - y0) / scaleMax;
             var frame = LTRB(-485, 350, 485, -372);
             Table(frame);
             TableBorder(frame);
-            for (int v = 1; v <= 6; v++) HLine(structure, y0 + v * unit, x0, xEnd, 3, Palette.WithA(Palette.Line, 0.8f));
-            for (int v = 0; v <= 6; v++) Txt(structure, v.ToString(), new Vector2(x0 - 36, y0 + v * unit), new Vector2(60, 50), 38, Palette.Ink);
+            for (int v = scaleStep; v <= scaleMax; v += scaleStep) HLine(structure, y0 + v * unit, x0, xEnd, 3, Palette.WithA(Palette.Line, 0.8f));
+            for (int v = 0; v <= scaleMax; v += scaleStep) Txt(structure, v.ToString(), new Vector2(x0 - 36, y0 + v * unit), new Vector2(60, 50), 38, Palette.Ink);
             var yTitle = Txt(structure, "Number of balls", new Vector2(x0 - 104, (y0 + top) / 2f), new Vector2(360, 50), 32, Palette.InkSoft);
             ((RectTransform)yTitle.transform.parent).localRotation = Quaternion.Euler(0, 0, 90f);
             VLine(structure, x0, y0 - 3, top + 18, 6, Palette.Ink);
@@ -252,7 +254,7 @@ namespace DataChampions
 
             string[] names = { "Beach balls", "Volleyballs", "Basketballs", "Footballs" };
             string[] icons = { "beach_ball", "fl_volleyball", "fl_basketball", "fl_soccer_ball" };
-            int[] values = { 5, 2, 4, 3 };
+            int[] values = { 25, 10, 20, 15 };
             float slot = (xEnd - x0) / 4f;
             view.axisX = x0;
             view.zeroY = y0;
