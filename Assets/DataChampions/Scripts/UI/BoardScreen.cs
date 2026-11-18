@@ -19,6 +19,7 @@ namespace DataChampions
 
         public static readonly Vector2 TileSize = new Vector2(250, 232);
         const float Gap = 28f;
+        static readonly Vector2 HelpSize = new Vector2(290, 76);
 
         /// <summary>Creates the ten tiles for a new game. points/skills are per tile.</summary>
         public void BuildTiles(int[] points, int[] skills, System.Action<int> onPick)
@@ -77,7 +78,13 @@ namespace DataChampions
             b.grid = UIFactory.Rect(root, "Grid", UIFactory.Center, new Vector2(190, -48), new Vector2(1400, 520));
             b.owl = Owl.Build(root, "Owl", new Vector2(0.5f, 0f), new Vector2(-770, 10), 0.82f);
             b.bubble = SpeechBubble.Build(root, "Bubble", new Vector2(0.5f, 0f), new Vector2(-770, 520), new Vector2(0.5f, 0f), 380, 36, true);
-            b.help = UIFactory.RoundButton(root, "Help", cfg.S("question"), new Vector2(0, 1), new Vector2(76, -200), 84, Palette.Blue, Palette.BlueLip);
+            // "How to Play" pill under the HUD pause button (left edges line up at x = 26)
+            b.help = UIFactory.Button(root, "Help", "HOW TO PLAY", new Vector2(0, 1), new Vector2(26 + HelpSize.x * 0.5f, -200), HelpSize,
+                Palette.Blue, Palette.BlueLip, 34, cfg.S("question"), 9f);
+            var helpLabel = UIFactory.ButtonLabel(b.help);
+            helpLabel.enableAutoSizing = true;
+            helpLabel.fontSizeMax = 34;
+            helpLabel.fontSizeMin = 22;
             return b;
         }
     }

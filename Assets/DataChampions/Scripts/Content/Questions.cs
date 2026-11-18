@@ -165,7 +165,7 @@ namespace DataChampions
             new QuestionDef
             {
                 id = 8, diagram = DiagramId.CarrollNumbers, skill = Skills.Carroll, points = 300,
-                text = "Which numbers are multiples of 3 AND even numbers?",
+                text = "Which numbers are multiples of 3 and even numbers?",
                 options = new[] { "6, 18, 24", "9, 21, 27", "10, 20, 40", "25, 35, 55", "6, 9, 21", "6, 10, 20" }, answer = 0, unit = "numbers",
                 hint = "Find where the 'multiple of 3' row meets the 'even number' column.",
                 hintRegions = new[] { "row0", "col0" },
@@ -175,13 +175,13 @@ namespace DataChampions
                     ExplainStep.Highlight("col0"),
                     ExplainStep.Highlight("cell00"),
                     ExplainStep.Count("cell00"),
-                    ExplainStep.Caption("6, 18 and 24 are multiples of 3 AND even"),
+                    ExplainStep.Caption("6, 18 and 24 are multiples of 3 and even"),
                 }
             },
             new QuestionDef
             {
                 id = 9, diagram = DiagramId.CarrollNames, skill = Skills.Carroll, points = 200,
-                text = "How many children can ride a bike AND swim?",
+                text = "How many children can ride a bike and swim?",
                 options = QuestionDef.Num(3, 4, 5, 6, 7, 13), answer = 1, unit = "children",
                 hint = "Find the box where 'Can swim' meets 'Can ride a bike'.",
                 hintRegions = new[] { "row0", "col0" },
@@ -197,7 +197,7 @@ namespace DataChampions
             new QuestionDef
             {
                 id = 10, diagram = DiagramId.CarrollShapes, skill = Skills.Carroll, points = 300,
-                text = "How many shapes are symmetrical AND have more than 4 corners?",
+                text = "How many shapes are symmetrical and have more than 4 corners?",
                 options = QuestionDef.Num(1, 2, 3, 4, 5, 6), answer = 1, unit = "shapes",
                 hint = "Find where the 'Symmetrical' row meets the 'More than 4 corners' column.",
                 hintRegions = new[] { "row0", "col1" },
